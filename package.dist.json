@@ -1,0 +1,32 @@
+{
+  "name": "jsharmony-cms-sdk-react",
+  "version": "1.1.0",
+  "description": "jsHarmony CMS SDK for React",
+  "main": "dist/bundles/jshReactSdk.umd.js",
+  "module": "dist/fesm2015/jshReactSdk.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/apHarmony/jsharmony-cms-sdk-react"
+  },
+  "keywords": [
+    "jsHarmony",
+    "CMS",
+    "content",
+    "SDK",
+    "JavaScript",
+    "JS",
+    "React",
+    "React.js"
+  ],
+  "author": "apHarmony <contact@apharmony.com> (http://www.apharmony.com/)",
+  "license": "LGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/apHarmony/jsharmony-cms-sdk-react/issues"
+  },
+  "homepage": "https://github.com/apHarmony/jsharmony-cms-sdk-react",
+  "typings": "jshReactSdk.d.ts",
+  "peerDependencies": {
+    "react": "^17.0.19",
+    "react-router-dom": "^5.2.1"
+  }
+}
