@@ -16,28 +16,3 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-const fs = require('fs-extra');
-const nPath = require('path');
-const { paths } = require('../config');
-
-const fileList = [
-  { src: './README.md', dest: './README.md' },
-  { src: './LICENSE', dest: './LICENSE' },
-  { src: './package.dist.json', dest: './package.json'},
-  { src: './lib/jsHarmonyCmsEditor.js', dest: './jsHarmonyCmsEditor.js'},
-];
-
-
-async function copyFiles() {
-
-  for (let i = 0; i < fileList.length; i++) {
-
-    const src = nPath.resolve(nPath.join(paths.root, fileList[i].src));
-    const dest = nPath.resolve(nPath.join(paths.distRoot, fileList[i].dest));
-
-    await fs.copy(src, dest);
-  }
-}
-
-module.exports.copyFiles = copyFiles;

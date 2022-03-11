@@ -30,13 +30,16 @@ const ambientDefs = [
   nPath.join(paths.srcRoot, 'jsHarmonyCmsClient.d.ts')
  ];
 const defOutputFile = nPath.join(paths.distRoot, 'jshReactSdk.d.ts');
+const licenseFile = nPath.join(paths.root, 'LICENSE.include');
 
 async function appendAmbients() {
 
+  var fileText = (await fs.readFile(defOutputFile)).toString();
   for (let i = 0; i < ambientDefs.length; i++) {
-    const file = '\n\n\n' + (await fs.readFile(ambientDefs[i])).toString();
-    await fs.appendFile(defOutputFile, file);
+    fileText += '\n\n\n' + (await fs.readFile(ambientDefs[i])).toString();
   }
+  fileText = (await fs.readFile(licenseFile)).toString() + '\n\n' + fileText;
+  await fs.writeFile(defOutputFile, fileText);
 }
 
 async function deleteTempFiles() {

@@ -27,7 +27,7 @@ const cmsEditorPath = nPath.join(paths.distRoot, 'jsHarmonyCmsEditor.js');
 async function minifyCmsEditor() {
 
   const file = (await fs.readFile(cmsEditorPath)).toString();
-  const result = UglifyJS.minify(file);
+  const result = UglifyJS.minify(file, { output: { comments: '/^!/' } });
 
   await fs.writeFile(cmsEditorPath, result.code);
 }
