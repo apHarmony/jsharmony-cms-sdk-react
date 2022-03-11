@@ -29,7 +29,7 @@ const tempFolder = nPath.join(paths.distRoot, 'temp-dts');
 const ambientDefs = [
   nPath.join(paths.srcRoot, 'jsHarmonyCmsClient.d.ts')
  ];
-const defOutputFile = nPath.join(paths.distRoot, 'jshReactSdk.d.ts');
+const defOutputFile = nPath.join(paths.distRoot, 'jsHarmonyCmsSdkReact.d.ts');
 const licenseFile = nPath.join(paths.root, 'LICENSE.include');
 
 async function appendAmbients() {

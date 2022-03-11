@@ -69,16 +69,16 @@ function getConfig(isUmd, isDev) {
   if (isUmd) {
     config.output = {
       path: nPath.join(outputRoot, 'bundles'),
-      filename: 'jshReactSdk.umd.js',
+      filename: 'jsHarmonyCmsSdkReact.umd.js',
       library: {
-        name: 'jshReactSdk',
+        name: 'jsHarmonyCmsSdkReact',
         type: 'umd'
       }
     };
   } else {
     config.output = {
       path: nPath.join(outputRoot, 'fesm2015'),
-      filename: 'jshReactSdk.js',
+      filename: 'jsHarmonyCmsSdkReact.js',
       module: true,
       library: {
         type: 'module',
