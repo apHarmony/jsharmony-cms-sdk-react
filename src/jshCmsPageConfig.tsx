@@ -19,6 +19,9 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
 
+/**
+ * @public
+ */
 export class JshCmsPageConfig extends React.Component<JshCmsPageConfigProps, never> {
 
   private _cleanupFn: (() => void) | undefined;
@@ -53,6 +56,9 @@ export class JshCmsPageConfig extends React.Component<JshCmsPageConfigProps, nev
 }
 
 /* eslint-disable @typescript-eslint/naming-convention */
+/**
+ * @public
+ */
 export interface JshCmsPageConfigDefinition {
   title?: string;
   /**
@@ -95,6 +101,9 @@ export interface JshCmsPageConfigDefinition {
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
+/**
+ * @public
+ */
 export interface JshCmsPageConfigProps {
   config?: JshCmsPageConfigDefinition;
 }

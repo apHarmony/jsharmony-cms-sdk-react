@@ -28,7 +28,10 @@ import { PublishedStaticContentOptions } from '../outlets/JshCmsStaticOutlet';
 
 export { History, Location } from 'history';
 
-class JshCmsRouteBase extends React.Component<JshCmsRouteProps, JshCmsRouteState> {
+/**
+ * @public
+ */
+export class JshCmsRouteBase extends React.Component<JshCmsRouteProps, JshCmsRouteState> {
 
   declare public context: React.ContextType<typeof JshCmsClientContext> | undefined;
   public static override contextType = JshCmsClientContext;
@@ -196,6 +199,9 @@ class JshCmsRouteBase extends React.Component<JshCmsRouteProps, JshCmsRouteState
   }
 }
 
+/**
+ * @public
+ */
 export interface JshCmsRouteProps extends RouteComponentProps {
   /**
    * Set to true to convert anchor element to navigate using the React
@@ -226,7 +232,7 @@ export interface JshCmsRouteProps extends RouteComponentProps {
   exact?: boolean;
   options?: PublishedContentOptions & (PublishedDynamicContentOptions | PublishedStaticContentOptions);
   /**
-   * Any valid URL path or array of paths that path-to-regexp@^1.7.0 understands.
+   * Any valid URL path or array of paths that path-to-regexp\@^1.7.0 understands.
    * If the current window location path matches this path then this component will be
    * rendered.
    *
@@ -243,13 +249,19 @@ export interface JshCmsRouteProps extends RouteComponentProps {
   sensitive?: boolean;
 }
 
-interface JshCmsRouteState {
+/**
+ * @public
+ */
+export interface JshCmsRouteState {
   resolvedCmsPath?: ResolvedPath;
   loadingRedirectData?: boolean;
   loadingPageData?: boolean;
 }
 
-interface ResolvedPath {
+/**
+ * @public
+ */
+export interface ResolvedPath {
   path: string;
   type:
     'iframe' |
@@ -258,4 +270,7 @@ interface ResolvedPath {
     'internalTerminal';
 }
 
+/**
+ * @public
+ */
 export const JshCmsRoute = withRouter(JshCmsRouteBase);

@@ -204,6 +204,9 @@ export interface  JshCmsDynamicPublishOutletProps {
   page: JshCmsPage;
 }
 
+/**
+ * @public
+ */
 export interface  PublishedDynamicContentOptions {
   /**
    * This function is called after rendering the page.

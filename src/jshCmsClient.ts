@@ -20,6 +20,10 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 import 'jsharmony-cms-sdk-clientjs';
 import { Fetch } from './Fetch';
 import { JshCmsAbortable } from './jshCmsAbortable';
+
+/**
+ * @public
+ */
 export class JshCmsClient {
 
   public get pageFilesPath(): string { return this._pageFilesPath; }
@@ -133,10 +137,24 @@ export class JshCmsClient {
   }
 }
 
+/**
+ * @public
+ */
 export type JshCmsPage = jsh.Page;
+
+/**
+ * @public
+ */
 export type JshCmsRedirectData = jsh.Redirect;
+
+/**
+ * @public
+ */
 export type JshCmsResolvedRedirect = jsh.ResolvedRedirect;
 
+/**
+ * @public
+ */
 export type JshCmsClientArgs = {
   /** CMS Editor Access Keys */
   accessKeys: string[];

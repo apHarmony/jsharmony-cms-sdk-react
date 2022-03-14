@@ -21,6 +21,9 @@ import React from 'react';
 import { JshCmsClient } from './jshCmsClient';
 import { JshCmsClientContext, JshCmsClientContextData } from './jshCmsClientContext';
 
+/**
+ * @public
+ */
 export class JshCms extends React.Component<JshCmsProps, JshCmsState> {
 
   private readonly _contextData: JshCmsClientContextData;
@@ -46,6 +49,9 @@ export class JshCms extends React.Component<JshCmsProps, JshCmsState> {
   }
 }
 
+/**
+ * @public
+ */
 export interface JshCmsProps {
   /**
    * CMS Editor Access Keys.
@@ -59,4 +65,7 @@ export interface JshCmsProps {
   redirectListingPath?: string;
 }
 
+/**
+ * @public
+ */
 export interface JshCmsState {}

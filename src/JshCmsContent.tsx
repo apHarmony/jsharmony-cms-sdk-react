@@ -25,6 +25,9 @@ import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynami
 import { JshCmsDynamicPublishOutlet, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
 import { JshCmsStaticOutlet, PublishedStaticContentOptions } from './outlets/JshCmsStaticOutlet';
 
+/**
+ * @public
+ */
 export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsContentState> {
 
   declare public context: React.ContextType<typeof JshCmsClientContext> | undefined;
@@ -307,6 +310,9 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
   }
 }
 
+/**
+ * @public
+ */
 export interface JshCmsContentProps {
   /**
    * Set this using the React Router History and Location
@@ -343,6 +349,9 @@ export interface JshCmsContentProps {
   published?: PublishedContentOptions & (PublishedDynamicContentOptions | PublishedStaticContentOptions);
 }
 
+/**
+ * @public
+ */
 export interface PublishedContentOptions  {
   /** If set then this will be rendered any time data is loading (while the CSM content is not rendered). */
   loadingElement?: React.ReactElement;
@@ -358,6 +367,9 @@ export interface PublishedContentOptions  {
   pageNotFoundElement?: React.ReactElement
 }
 
+/**
+ * @public
+ */
 export interface JshCmsContentState {
   componentFactory?: () => React.ReactElement<unknown>;
   loading?: boolean;
