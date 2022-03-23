@@ -17,9 +17,21 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-export { JshCmsRoute } from './JshCmsRoute';
-export {
-  History,
-  JshCmsRouteProps,
-  Location
-} from './JshCmsRouteBase';
+const { paths } = require('../config');
+const fs = require('fs-extra');
+const nPath = require('path');
+
+const packageJsonPath = nPath.join(paths.distRoot, 'package.json');
+
+async function stripPackageJson() {
+  const fileObj = JSON.parse(fs.readFileSync(packageJsonPath).toString());
+  delete fileObj['scripts'];
+  delete fileObj['devDependencies'];
+
+  fileObj.main = fileObj.main.replace(/^dist\//i, '');
+  fileObj.module = fileObj.module.replace(/^dist\//i, '');
+
+  fs.writeFileSync(packageJsonPath, JSON.stringify(fileObj, null, 2));
+}
+
+module.exports.stripPackageJson = stripPackageJson;

@@ -132,6 +132,9 @@ export interface JshCmsStaticOutletState {
   childElements?: Element[];
 }
 
+/**
+ * @public
+ */
 export interface PublishedStaticContentOptions {
   /**
    * This function is called after rendering the page.

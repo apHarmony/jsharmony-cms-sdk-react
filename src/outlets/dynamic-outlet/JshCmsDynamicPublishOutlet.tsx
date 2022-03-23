@@ -18,9 +18,11 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React from 'react';
-import { JshCmsPage } from '../../jshCmsClient';
 import { JshCmsClientContext } from '../../jshCmsClientContext';
 
+/**
+ * @internal
+ */
 export class JshCmsDynamicPublishOutlet extends React.Component<JshCmsDynamicPublishOutletProps, JshCmsDynamicPublishOutletState> {
 
   declare public context: React.ContextType<typeof JshCmsClientContext> | undefined;
@@ -198,12 +200,18 @@ export class JshCmsDynamicPublishOutlet extends React.Component<JshCmsDynamicPub
   }
 }
 
+/**
+ * @internal
+ */
 export interface  JshCmsDynamicPublishOutletProps {
   componentFactory: () => React.ReactElement<unknown>;
   options: PublishedDynamicContentOptions;
   page: JshCmsPage;
 }
 
+/**
+ * @public
+ */
 export interface  PublishedDynamicContentOptions {
   /**
    * This function is called after rendering the page.
@@ -248,9 +256,34 @@ export interface  PublishedDynamicContentOptions {
   onSetTitle?: (title: string) => void;
 }
 
+/**
+ * @internal
+ */
 export interface JshCmsDynamicPublishOutletState {
   renderData?: {
     pageData: JshCmsPage;
     template: React.ReactElement | undefined;
   };
+}
+
+/**
+ * @public
+ */
+export interface JshCmsPage {
+  content: { [areaId: string]: string };
+  css: string;
+  footer: string;
+  header: string;
+  js: string;
+  /* eslint-disable-next-line @typescript-eslint/naming-convention */
+  page_template_id: string;
+  properties: { [propName: string]: Record<string, unknown> };
+  seo: {
+    /* eslint-disable-next-line @typescript-eslint/naming-convention */
+    canonical_url: string;
+    keywords: string;
+    metadesc: string;
+    title: string;
+  };
+  title: string;
 }

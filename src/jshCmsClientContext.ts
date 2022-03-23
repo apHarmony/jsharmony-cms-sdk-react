@@ -20,8 +20,14 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 import React from 'react';
 import { JshCmsClient } from './jshCmsClient';
 
+/**
+ * @internal
+ */
 export const JshCmsClientContext = React.createContext<JshCmsClientContextData | undefined>(undefined);
 
+/**
+ * @internal
+ */
 export interface JshCmsClientContextData {
   cmsClient: JshCmsClient;
 }

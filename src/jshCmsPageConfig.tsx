@@ -19,10 +19,46 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 import React from 'react';
 
+/**
+ * This component is used to set the {@link https://www.jsharmonycms.com/resources/documentation/page-templates/reference-cms-page-config/ | cms-page-config}
+ * for a template.
+ *
+ * Use within a {@link JshCmsContent} component.
+ *
+ * @example
+* ```tsx
+ * function Standalone() {
+ *   return (
+ *    <JshCmsContent>
+ *      <JshCmsPageConfig
+ *        config={{
+ *          content: {
+ *            analytics: "<script cms-component='analytics' cms-component-remove-container><\/script>",
+ *          }
+ *        }}
+ *      ></JshCmsPageConfig>
+ *      <h1 cms-title="true" cms-onrender="showIf(page.properties.showTitle!='N');">Page Title</h1>
+ *      <div cms-content-editor="page.content.body" cms-onrender="addClass(page.properties.containerClass); addStyle(page.properties.containerStyle);">Page Content</div>
+ *    </JshCmsContent>
+ *   );
+ * }
+ * ```
+ * @public
+ */
 export class JshCmsPageConfig extends React.Component<JshCmsPageConfigProps, never> {
 
   private _cleanupFn: (() => void) | undefined;
 
+  /**
+   * @internal
+   */
+   public constructor(props: JshCmsPageConfigProps) {
+    super(props);
+  }
+
+  /**
+   * @internal
+   */
   public override componentDidMount(): void {
 
     const scriptEl = this.insertPageConfigElement();
@@ -33,11 +69,17 @@ export class JshCmsPageConfig extends React.Component<JshCmsPageConfigProps, nev
     };
   }
 
-  public override componentWillUnmount(): void {
+  /**
+   * @internal
+   */
+   public override componentWillUnmount(): void {
     this._cleanupFn?.();
   }
 
-  public override render(): React.ReactElement {
+  /**
+   * @internal
+   */
+   public override render(): React.ReactElement {
     return <></>
   }
 
@@ -53,6 +95,9 @@ export class JshCmsPageConfig extends React.Component<JshCmsPageConfigProps, nev
 }
 
 /* eslint-disable @typescript-eslint/naming-convention */
+/**
+ * @public
+ */
 export interface JshCmsPageConfigDefinition {
   title?: string;
   /**
@@ -95,6 +140,9 @@ export interface JshCmsPageConfigDefinition {
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
+/**
+ * @public
+ */
 export interface JshCmsPageConfigProps {
   config?: JshCmsPageConfigDefinition;
 }

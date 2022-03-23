@@ -24,27 +24,39 @@ const { copyFiles } = require('./tasks/copy.task');
 const { minifyCmsEditor } = require('./tasks/minify-cms-editor.task');
 const { lint, lintFix } = require('./tasks/lint.task');
 const { cleanDist } = require('./tasks/clean-dist.task');
+const { generateTypeDefs } = require('./tasks/generate-type-defs.task');
+const { generateDocs } = require('./tasks/generate-docs.task');
+const { stripPackageJson } = require('./tasks/strip-package-json.task');
 
 exports['build:prod'] = series(
   lint,
   cleanDist,
   runWebpack,
+  generateTypeDefs,
   rollupDefinitionFiles,
+  generateDocs,
   copyFiles,
+  stripPackageJson,
   minifyCmsEditor
 );
 
-exports['build:watch'] = function() {
-  cleanDist().then(() => {
-    return copyFiles();
-  }).then(() => {
-    runWebpackWatch(() => {
-      rollupDefinitionFiles();
-    });
+exports['build:watch'] = async function() {
+
+  await cleanDist();
+  await copyFiles();
+
+  runWebpackWatch(async () => {
+    await generateTypeDefs();
+    rollupDefinitionFiles()
   });
 }
 
+exports.extractDefinitions = series(
+  generateTypeDefs,
+  rollupDefinitionFiles
+);
 
+exports.generateDocs = generateDocs;
 exports.lint = lint
 exports.lintFix = lintFix
 

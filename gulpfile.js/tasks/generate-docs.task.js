@@ -17,27 +17,39 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-const fs = require('fs-extra');
-const nPath = require('path');
 const { paths } = require('../config');
+const fs = require('fs-extra');
+const { spawn } = require('child_process');
+const nPath = require('path');
 
-const fileList = [
-  { src: './README.md', dest: './README.md' },
-  { src: './LICENSE', dest: './LICENSE' },
-  { src: './package.json', dest: './package.json'},
-  { src: './lib/jsHarmonyCmsEditor.js', dest: './jsHarmonyCmsEditor.js'},
-];
+const docsOutputFolder = nPath.join(paths.distRoot, 'docs');
 
+async function generateDocs() {
 
-async function copyFiles() {
+  fs.removeSync(docsOutputFolder);
 
-  for (let i = 0; i < fileList.length; i++) {
+  return new Promise((resolve, reject) => {
+    const args = [
+      'typedoc',
+      '--plugin', 'typedoc-plugin-markdown',
+      '--out', docsOutputFolder,
+      '--excludePrivate',
+      '--excludeInternal',
+      '--excludeExternals',
+      '--disableSources',
+      '--readme', 'none',
+      nPath.join(paths.srcRoot, 'public-api.ts')
+    ];
 
-    const src = nPath.resolve(nPath.join(paths.root, fileList[i].src));
-    const dest = nPath.resolve(nPath.join(paths.distRoot, fileList[i].dest));
+    const s = spawn('npx', args,{
+      shell: true,
+      stdio: 'inherit'
+    });
 
-    await fs.copy(src, dest);
-  }
+    s.on('close', code => {
+      resolve(code);
+    });
+  });
 }
 
-module.exports.copyFiles = copyFiles;
+module.exports.generateDocs = generateDocs;
