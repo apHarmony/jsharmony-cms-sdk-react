@@ -20,6 +20,9 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 import React from 'react';
 import { JshCmsClientContext } from '../../jshCmsClientContext';
 
+/**
+ * @internal
+ */
 export class JshCmsDynamicEditorOutlet extends React.Component<JshCmsDynamicEditorOutletProps, JshCmsDynamicEditorOutletState> {
 
   declare public context: React.ContextType<typeof JshCmsClientContext> | undefined;
@@ -76,6 +79,9 @@ export interface JshCmsDynamicEditorOutletProps {
   componentFactory: () => React.ReactElement<unknown>;
 }
 
+/**
+ * @internal
+ */
 export interface JshCmsDynamicEditorOutletState {
   componentFactory?: () => React.ReactElement;
 }

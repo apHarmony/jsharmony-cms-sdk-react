@@ -17,10 +17,22 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-export { JshCms, JshCmsProps } from './JshCms';
-export { JshCmsPage } from './jshCmsClient';
+export { JshCms, JshCmsProps, JshCmsState } from './JshCms';
+export { JshCmsAbortable } from './jshCmsAbortable';
+export {
+  JshCmsClient,
+  JshCmsClientArgs,
+  JshCmsRedirectData,
+  JshCmsResolvedRedirect
+} from './jshCmsClient';
 export { JshCmsClientContext, JshCmsClientContextData } from './jshCmsClientContext';
-export { JshCmsContent, JshCmsContentProps } from './JshCmsContent';
+export {
+  JshCmsContent,
+  JshCmsContentProps,
+  JshCmsContentState,
+  PublishedContentOptions
+} from './JshCmsContent';
 export { JshCmsPageConfig, JshCmsPageConfigDefinition, JshCmsPageConfigProps } from './jshCmsPageConfig';
+export * from './outlets/public-api';
 export * from './route/public-api';
 

@@ -19,20 +19,80 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 import { History, Location } from 'history';
 import React from 'react';
-import { JshCmsPage } from './jshCmsClient';
 import { JshCmsClientContext } from './jshCmsClientContext';
 import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynamicEditorOutlet';
-import { JshCmsDynamicPublishOutlet, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
+import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
 import { JshCmsStaticOutlet, PublishedStaticContentOptions } from './outlets/JshCmsStaticOutlet';
 
+/**
+ * Load and render CMS content.
+ *
+ * This component Must have {@link JshCms} component as an ancestor.
+ *
+ * See {@link JshCmsContentProps} for all render options.
+ *
+ * @example
+ * This example shows a standalone component:
+ * ```tsx
+ * function Standalone() {
+ *   // This is optional. Using React Router hooks to handle link binding.
+ *   const history = useHistory();
+ *   const location = useLocation();
+ *
+ *   return (
+ *    <JshCmsContent bindLinks={{ history, location }}>
+ *      <JshCmsPageConfig
+ *        config={{
+ *          content: {
+ *            analytics: "<script cms-component='analytics' cms-component-remove-container><\/script>",
+ *          }
+ *        }}
+ *      ></JshCmsPageConfig>
+ *      <h1 cms-title="true" cms-onrender="showIf(page.properties.showTitle!='N');">Page Title</h1>
+ *      <div cms-content-editor="page.content.body" cms-onrender="addClass(page.properties.containerClass); addStyle(page.properties.containerStyle);">Page Content</div>
+ *    </JshCmsContent>
+ *   );
+ * }
+ * ```
+ *
+ * @example
+ * This example shows a dynamic page:
+ * ```tsx
+ * function MyTemplate() {
+ *    return (
+ *      <div>
+ *        <div cms-component='topmenu' cms-menu-tag="mainmenu" cms-component-remove-container="true" cms-component-content="page.content.topmenu"></div>
+ *        <div cms-template="!two-column-page-object" cms-content-editor="page.content.body" cms-onrender="addClass(page.properties.containerClass); addStyle(page.properties.containerStyle);">Page Content</div>
+ *      </div>
+ *    );
+ * }
+ * // Render content edited at "./about/team.html" into
+ * // the "MyTemplate" component
+ * <JshCmsContent
+ *    cmsContentPath="./about/team.html"
+ *    component={MyTemplate}>
+ * </JshCmsContent>
+ * ```
+ *
+ * @public
+ */
 export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsContentState> {
 
+  /**
+   * @internal
+   */
   declare public context: React.ContextType<typeof JshCmsClientContext> | undefined;
+  /**
+   * @internal
+   */
   public static override contextType = JshCmsClientContext;
 
   private _abortPageLoad: (() => void) | undefined;
   private _removeLinkEvenHandlers: (() => void)[] = [];
 
+  /**
+   * @internal
+   */
   public constructor(props: JshCmsContentProps) {
     super(props);
 
@@ -41,7 +101,10 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
     };
   }
 
-  public override componentDidMount(): void {
+  /**
+   * @internal
+   */
+   public override componentDidMount(): void {
 
     if (this.context == null) {
       throw new Error('JshCmsClientContext was not provided.');
@@ -68,7 +131,10 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
     }
   }
 
-  public override componentDidUpdate(prevProps: Readonly<JshCmsContentProps>, prevState: Readonly<JshCmsContentState>): void {
+  /**
+   * @internal
+   */
+   public override componentDidUpdate(prevProps: Readonly<JshCmsContentProps>, prevState: Readonly<JshCmsContentState>): void {
     if (prevState.loading !== this.state.loading && this.state.renderType === 'publish') {
       this.props.published?.onLoadingChange?.(this.state.loading === true)
     }
@@ -79,11 +145,17 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
     }
   }
 
-  public override componentWillUnmount(): void {
+  /**
+   * @internal
+   */
+   public override componentWillUnmount(): void {
     this._abortPageLoad?.();
   }
 
-  public override render(): React.ReactElement {
+  /**
+   * @internal
+   */
+   public override render(): React.ReactElement {
     switch (this.state.renderType) {
       case 'notSet':
         return <></>
@@ -307,6 +379,9 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
   }
 }
 
+/**
+ * @public
+ */
 export interface JshCmsContentProps {
   /**
    * Set this using the React Router History and Location
@@ -339,10 +414,15 @@ export interface JshCmsContentProps {
   component?:
     React.JSXElementConstructor<unknown>
     | ((templateName: string, contentPath: string) => React.JSXElementConstructor<unknown> | undefined);
-
+  /**
+   * Set additional options depending on if rendering dynamic or static content.
+   */
   published?: PublishedContentOptions & (PublishedDynamicContentOptions | PublishedStaticContentOptions);
 }
 
+/**
+ * @public
+ */
 export interface PublishedContentOptions  {
   /** If set then this will be rendered any time data is loading (while the CSM content is not rendered). */
   loadingElement?: React.ReactElement;
@@ -358,6 +438,9 @@ export interface PublishedContentOptions  {
   pageNotFoundElement?: React.ReactElement
 }
 
+/**
+ * @internal
+ */
 export interface JshCmsContentState {
   componentFactory?: () => React.ReactElement<unknown>;
   loading?: boolean;

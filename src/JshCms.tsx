@@ -21,10 +21,33 @@ import React from 'react';
 import { JshCmsClient } from './jshCmsClient';
 import { JshCmsClientContext, JshCmsClientContextData } from './jshCmsClientContext';
 
+/**
+ * This is the root CMS root component that provides
+ * the correct context to render CMS content.
+ *
+ * This class must be an ancestor of all CMS content.
+ * It should be near the root of the React application.
+ *
+ * @example
+ * ```tsx
+ * <Application>
+ *  <JshCms
+ *    accessKeys={['key1']}
+ *    pageFilesPath='/cms/'
+ *    redirectListingPath='./jshcms_redirects.json'>
+ *   <AppCode>....</AppCode>
+ *  </JshCms>
+ * </Application>
+ * ```
+ * @public
+ */
 export class JshCms extends React.Component<JshCmsProps, JshCmsState> {
 
   private readonly _contextData: JshCmsClientContextData;
 
+  /**
+   * @internal
+   */
   public constructor(props: JshCmsProps) {
     super(props);
 
@@ -37,6 +60,9 @@ export class JshCms extends React.Component<JshCmsProps, JshCmsState> {
     };
   }
 
+  /**
+   * @internal
+   */
   public override render(): React.ReactElement {
     return  (
       <JshCmsClientContext.Provider value={this._contextData}>
@@ -46,6 +72,9 @@ export class JshCms extends React.Component<JshCmsProps, JshCmsState> {
   }
 }
 
+/**
+ * @public
+ */
 export interface JshCmsProps {
   /**
    * CMS Editor Access Keys.
@@ -59,4 +88,7 @@ export interface JshCmsProps {
   redirectListingPath?: string;
 }
 
+/**
+ * @internal
+ */
 export interface JshCmsState {}

@@ -17,9 +17,6 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-export { JshCmsRoute } from './JshCmsRoute';
-export {
-  History,
-  JshCmsRouteProps,
-  Location
-} from './JshCmsRouteBase';
+export * from './dynamic-outlet/public-api';
+export { PublishedStaticContentOptions } from './JshCmsStaticOutlet';
+

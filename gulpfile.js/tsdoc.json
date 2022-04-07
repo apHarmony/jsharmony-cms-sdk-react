@@ -1,0 +1,20 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/tsdoc/v0/tsdoc.schema.json",
+
+  // Inherit the TSDoc configuration for API Extractor
+  "extends": [ "@microsoft/api-extractor/extends/tsdoc-base.json" ],
+
+
+  "tagDefinitions": [
+    {
+      // This tag is used by TypeDoc to hide
+      // item from docs
+      "tagName": "@hidden",
+      "syntaxKind": "modifier"
+    }
+  ],
+
+  "supportForTags": {
+    "@hidden": true
+  }
+}

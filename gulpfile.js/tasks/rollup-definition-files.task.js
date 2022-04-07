@@ -17,24 +17,24 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-const { spawn } = require('child_process');
 const nPath = require('path');
 const { Extractor, ExtractorConfig } = require('@microsoft/api-extractor');
 const fs = require('fs-extra');
 const { paths } = require('../config');
-
-const projectFile = nPath.join(paths.root, 'tsconfig.declaration.json');
 const apiExtractorJsonPath = nPath.join(paths.gulpRoot, 'api-extractor.json');
-const tempFolder = nPath.join(paths.distRoot, 'temp-dts');
+const tsDocJsonPath = nPath.join(paths.gulpRoot, 'tsdoc.json');
+
 const ambientDefs = [
   nPath.join(paths.srcRoot, 'jsHarmonyCmsClient.d.ts')
  ];
+
+
 const defOutputFile = nPath.join(paths.distRoot, 'jsHarmonyCmsSdkReact.d.ts');
 const licenseFile = nPath.join(paths.root, 'LICENSE.include');
 
 async function appendAmbients() {
 
-  var fileText = (await fs.readFile(defOutputFile)).toString();
+  let fileText = (await fs.readFile(defOutputFile)).toString();
   for (let i = 0; i < ambientDefs.length; i++) {
     fileText += '\n\n\n' + (await fs.readFile(ambientDefs[i])).toString();
   }
@@ -42,30 +42,13 @@ async function appendAmbients() {
   await fs.writeFile(defOutputFile, fileText);
 }
 
-async function deleteTempFiles() {
-  return fs.remove(tempFolder);
-}
-
-async function generateTempDtsFiles() {
-  return new Promise((resolve, reject) => {
-    const tsc = spawn('npx', ['tsc', '-p', projectFile], {
-      shell: true,
-      stdio: 'inherit'
-    });
-
-    tsc.on('close', code => {
-      resolve(code);
-    });
-  });
-}
-
 async function rollup() {
 
   const extractorConfig = ExtractorConfig.loadFileAndPrepare(apiExtractorJsonPath);
-
+  extractorConfig.tsdocConfigFile = tsDocJsonPath;
   const extractorResult = Extractor.invoke(extractorConfig, {
     localBuild: true,
-    showVerboseMessages: true
+    showVerboseMessages: false,
   });
 
   if (extractorResult.errorCount > 0) {
@@ -85,9 +68,7 @@ async function rollup() {
 }
 
 async function rollupDefinitionFiles() {
-  await generateTempDtsFiles();
   await rollup();
-  await deleteTempFiles();
   await appendAmbients();
 }
 

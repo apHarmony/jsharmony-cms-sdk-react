@@ -3,7 +3,7 @@
  */
  {
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
-  "mainEntryPointFilePath": "../dist/temp-dts/public-api.d.ts",
+  "mainEntryPointFilePath": "../temp/tsc-out/dts/public-api.d.ts",
 
   /**
    * A list of NPM package names whose exports should be treated as part of this package.
@@ -77,7 +77,8 @@
     /**
      * (REQUIRED) Whether to generate a doc model file.
      */
-    "enabled": false
+    "enabled": true,
+    "apiJsonFilePath": "../temp/sdk.api.json"
   },
 
   /**
@@ -187,14 +188,17 @@
       "default": {
         "logLevel": "warning"
         // "addToApiReportFile": false
+      },
+      "ae-internal-missing-underscore": {
+        "logLevel": "none",
+        "addToApiReportFile": true
+      },
+      "ae-incompatible-release-tags": {
+        // Report as none since we are
+        // using TypeDoc to generate docs
+        "logLevel": "none",
+        "addToApiReportFile": true
       }
-
-      // "ae-extra-release-tag": {
-      //   "logLevel": "warning",
-      //   "addToApiReportFile": true
-      // },
-      //
-      // . . .
     },
 
     /**

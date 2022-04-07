@@ -17,9 +17,28 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-export { JshCmsRoute } from './JshCmsRoute';
-export {
-  History,
-  JshCmsRouteProps,
-  Location
-} from './JshCmsRouteBase';
+const { spawn } = require('child_process');
+const nPath = require('path');
+const { paths } = require('../config');
+const fs = require('fs-extra');
+
+const projectFile = nPath.join(paths.root, 'tsconfig.declaration.json');
+const outputFolder = nPath.join(paths.root, 'temp/tsc-out/dts');
+
+async function generateTypeDefs() {
+
+  await fs.remove(outputFolder)
+
+  return new Promise((resolve, reject) => {
+    const tsc = spawn('npx', ['tsc', '-p', projectFile], {
+      shell: true,
+      stdio: 'inherit'
+    });
+
+    tsc.on('close', code => {
+      resolve(code);
+    });
+  });
+}
+
+module.exports.generateTypeDefs = generateTypeDefs;
