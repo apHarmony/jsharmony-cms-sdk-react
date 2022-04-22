@@ -1,6 +1,6 @@
 {
   "name": "jsharmony-cms-sdk-react",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "jsHarmony CMS SDK for React",
   "main": "dist/bundles/jsHarmonyCmsSdkReact.umd.js",
   "module": "dist/fesm2015/jsHarmonyCmsSdkReact.js",
@@ -34,8 +34,8 @@
     "lint:fix": "gulp lint:fix"
   },
   "peerDependencies": {
-    "react": "^17.0.19",
-    "react-router-dom": "^5.2.1"
+    "react": ">=17.x.x <19.x.x",
+    "react-router-dom": "5.x.x"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.18.17",

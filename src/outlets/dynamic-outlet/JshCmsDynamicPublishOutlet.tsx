@@ -43,9 +43,9 @@ export class JshCmsDynamicPublishOutlet extends React.Component<JshCmsDynamicPub
 
   public override componentDidUpdate(prevProps: Readonly<JshCmsDynamicPublishOutletProps>): void {
     const pageChanged = prevProps.page !== this.props.page;
-    const componentFactoryChanged = prevProps.componentFactory !== this.props.componentFactory;
+    const componentChanged = prevProps.component !== this.props.component;
 
-    if (pageChanged || componentFactoryChanged) {
+    if (pageChanged || componentChanged) {
       this.loadContent();
     }
   }
@@ -133,7 +133,7 @@ export class JshCmsDynamicPublishOutlet extends React.Component<JshCmsDynamicPub
     this.setState({
       renderData: {
         pageData: data,
-        template: this.props.componentFactory()
+        template: this.props.component
       }
     });
   }
@@ -204,7 +204,7 @@ export class JshCmsDynamicPublishOutlet extends React.Component<JshCmsDynamicPub
  * @internal
  */
 export interface  JshCmsDynamicPublishOutletProps {
-  componentFactory: () => React.ReactElement<unknown>;
+  component: React.ReactElement<unknown>;
   options: PublishedDynamicContentOptions;
   page: JshCmsPage;
 }
