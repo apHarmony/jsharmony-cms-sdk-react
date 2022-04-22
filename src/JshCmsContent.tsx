@@ -19,6 +19,7 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 import { History, Location } from 'history';
 import React from 'react';
+import { InternalPassthrough } from './InternalPassthrough';
 import { JshCmsClientContext } from './jshCmsClientContext';
 import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynamicEditorOutlet';
 import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
@@ -89,6 +90,7 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
   private _abortPageLoad: (() => void) | undefined;
   private _removeLinkEvenHandlers: (() => void)[] = [];
+  private _ref = React.createRef<HTMLDivElement>();
 
   /**
    * @internal
@@ -158,7 +160,7 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
    public override render(): React.ReactElement {
     switch (this.state.renderType) {
       case 'notSet':
-        return <></>
+        return <div style={{display: 'none'}} ref={this._ref}></div>
       case 'editor':
         return this.renderEditor();
       case 'publish':
@@ -184,6 +186,10 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
   private getCmsPath(cmsContentPath: string | undefined): string {
     if (cmsContentPath != null && cmsContentPath.length > 0) { return cmsContentPath; }
+
+    const passThroughPath = InternalPassthrough.getNearestPassthroughPath(this._ref.current);
+    if (passThroughPath != null) { return passThroughPath; }
+
     return window.location.pathname;
   }
 

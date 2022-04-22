@@ -21,6 +21,7 @@ import { History, Location } from 'history';
 import React from 'react';
 import { Redirect, Route, RouteComponentProps, withRouter } from 'react-router-dom';
 import { IframeWrapper } from '../iframeWrapper';
+import { InternalPassthrough } from '../InternalPassthrough';
 import { JshCmsClientContext } from '../jshCmsClientContext';
 import { JshCmsContent, PublishedContentOptions } from '../JshCmsContent';
 import { PublishedDynamicContentOptions } from '../outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
@@ -93,14 +94,29 @@ export class JshCmsRouteBase extends React.Component<JshCmsRouteBaseProps, JshCm
           childBindLinks = { history: this.props.history, location: this.props.location }
         }
 
+        const cmsContentElement = (
+          <JshCmsContent
+                bindLinks={childBindLinks}
+                component={this.props.component}
+                cmsContentPath={this.state.resolvedCmsPath.path}
+                published={publishOptions}
+                children={this.props.children}/>
+        );
+
+        let innerElement: React.ReactElement;
+        if (this.state.resolvedCmsPath.type === 'internalPassthrough') {
+          innerElement = (
+            <InternalPassthrough resolvedCmsPath={this.state.resolvedCmsPath.path}>
+              {cmsContentElement}
+            </InternalPassthrough>
+          );
+        } else {
+          innerElement = cmsContentElement;
+        }
+
         return (
           <Route path={this.props.path} exact={this.props.exact} sensitive={this.props.sensitive}>
-            <JshCmsContent
-              bindLinks={childBindLinks}
-              component={this.props.component}
-              cmsContentPath={this.state.resolvedCmsPath.path}
-              published={publishOptions}
-              children={this.props.children}/>
+            {innerElement}
           </Route>
         );
       }
