@@ -1,6 +1,6 @@
 {
   "name": "jsharmony-cms-sdk-react",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "jsHarmony CMS SDK for React",
   "main": "dist/bundles/jsHarmonyCmsSdkReact.umd.js",
   "module": "dist/fesm2015/jsHarmonyCmsSdkReact.js",
