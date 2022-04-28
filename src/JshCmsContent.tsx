@@ -19,6 +19,7 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 import { History, Location } from 'history';
 import React from 'react';
+import { InternalPassthrough } from './InternalPassthrough';
 import { JshCmsClientContext } from './jshCmsClientContext';
 import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynamicEditorOutlet';
 import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
@@ -89,6 +90,7 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
   private _abortPageLoad: (() => void) | undefined;
   private _removeLinkEvenHandlers: (() => void)[] = [];
+  private readonly _ref = React.createRef<HTMLDivElement>();
 
   /**
    * @internal
@@ -123,11 +125,25 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
           'Ensure the the  "component" property is set with a valid JSXElementConstructor or function ((templateName: string, contentPath: string) => JSXElementConstructor).'
         );
       }
-      this.setState({ componentFactory });
+      this.setState({ component: componentFactory() });
+    }
+
+    const hasPageProperty = this.props.page != null;
+    const hasHtmlProperty = (this.props.html ?? '').length > 0;
+    const hasContentPathProperty = (this.props.cmsContentPath ?? '').length > 0;
+    const hasInvalidProperties = [hasPageProperty, hasHtmlProperty, hasContentPathProperty].filter(a => a).length > 1;
+    if (hasInvalidProperties) {
+      throw new Error('Conflicting properties are being used. Only one of the following properties can be set at a time: "page", "html", "cmsContentPath"');
     }
 
     if (renderType === 'publish') {
-      this.loadContent(this.getCmsPath(this.props.cmsContentPath));
+      if (hasPageProperty) {
+        this.contentLoaded(this.props.page, undefined);
+      } else if (hasHtmlProperty) {
+        this.contentLoaded(this.props.html, undefined);
+      } else {
+        this.loadContent(this.getCmsPath(this.props.cmsContentPath));
+      }
     }
   }
 
@@ -158,7 +174,7 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
    public override render(): React.ReactElement {
     switch (this.state.renderType) {
       case 'notSet':
-        return <></>
+        return <div style={ { display: 'none' } } ref={this._ref}></div>
       case 'editor':
         return this.renderEditor();
       case 'publish':
@@ -184,6 +200,10 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
   private getCmsPath(cmsContentPath: string | undefined): string {
     if (cmsContentPath != null && cmsContentPath.length > 0) { return cmsContentPath; }
+
+    const passThroughPath = InternalPassthrough.getNearestPassthroughPath(this._ref.current);
+    if (passThroughPath != null) { return passThroughPath; }
+
     return window.location.pathname;
   }
 
@@ -220,13 +240,46 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
     }
   }
 
+  private contentLoaded(content: JshCmsPage | string | undefined, path: string | undefined): void {
+
+    let componentFactory: (() => React.ReactElement<unknown>) | undefined;
+    let staticHtml: string | undefined;
+    let page: JshCmsPage | undefined;
+
+    if (typeof content === 'string') {
+      componentFactory = this.getComponentFactory('', path ?? '');
+      staticHtml = content;
+    } else if (typeof content === 'object') {
+      page = content;
+      const templateId = page.page_template_id;
+      componentFactory = this.getComponentFactory(templateId, path ?? '');
+      if (componentFactory == null) {
+        const error = new Error(`JshCmsContent requires either JshCmsContent.component property to be set or child elements to load a dynamic page. Template ID "${templateId}", path "${path ?? ''}"`);
+        console.error(error);
+        throw error;
+      }
+    } else {
+      this.props.published?.onPageNotFound?.(path ?? '')
+    }
+
+    this.setState({
+      component: componentFactory?.(),
+      loading: false,
+      pageData: {
+        page,
+        path: path ?? '',
+        staticHtml
+      }
+    });
+  }
+
   private loadContent(path: string | undefined): void {
 
     this._abortPageLoad?.();
 
     if (path == null || path.length < 1) {
       this.setState({
-        componentFactory: undefined,
+        component: undefined,
         loading: false,
         pageData: undefined
       });
@@ -241,48 +294,21 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
     this.setState({ loading: true, pageData: undefined });
     abortable?.exec().then(data => {
-      if (data == null || data.length < 1) {
-        this.setState({ loading: false });
-        this.props.published?.onPageNotFound?.(path);
-        return;
-      }
 
-      let pageObject: JshCmsPage | undefined;
-      let staticPage: string | undefined;
-      let missingComponentFactoryError: Error | undefined;
-      let componentFactory: (() => React.ReactElement<unknown>) | undefined;
-      try {
-        pageObject = JSON.parse(data) as JshCmsPage;
-
-        const templateId = pageObject.page_template_id;
-        componentFactory = this.getComponentFactory(templateId, path);
-        if (componentFactory == null) {
-          missingComponentFactoryError = new Error(`JshCmsContent requires either JshCmsContent.component property to be set or child elements to load a dynamic page. Template ID "${templateId}", path "${path}"`);
+      let content: JshCmsPage | string | undefined;
+      if (data != null) {
+        try {
+          content = JSON.parse(data ?? '') as JshCmsPage;
+        } catch {
+          content = data;
         }
-      } catch {
-        componentFactory = this.getComponentFactory('', path);
-        staticPage = data;
       }
-
-      if (missingComponentFactoryError != null) {
-        console.error(missingComponentFactoryError);
-        throw missingComponentFactoryError;
-      }
-
-      this.setState({
-        componentFactory,
-        loading: false,
-        pageData: {
-          page: pageObject,
-          path,
-          staticHtml: staticPage
-        }
-      });
+      this.contentLoaded(content, path);
     })
     .catch(() => {
       this.props.published?.onPageNotFound?.(path);
       this.setState({
-        componentFactory: undefined,
+        component: undefined,
         loading: false,
         pageData: undefined
       });
@@ -341,10 +367,10 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
   private renderEditor(): React.ReactElement {
 
-    if (this.state.componentFactory == null) {
+    if (this.state.component == null) {
       return <></>;
     } else {
-      return <JshCmsDynamicEditorOutlet componentFactory={this.state.componentFactory}/>;
+      return <JshCmsDynamicEditorOutlet component={this.state.component}/>;
     }
   }
 
@@ -355,16 +381,16 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
     if (this.state.loading) {
       return this.props.published?.loadingElement == null ? <></> : this.props.published.loadingElement
-    } else if (this.state.pageData?.page != null && this.state.componentFactory != null) {
+    } else if (this.state.pageData?.page != null && this.state.component != null) {
       return (
         <JshCmsDynamicPublishOutlet
-          componentFactory={this.state.componentFactory}
+          component={this.state.component}
           options={publishOptions as PublishedDynamicContentOptions}
           page={this.state.pageData.page}/>
       );
     } else if (this.state.pageData?.staticHtml != null) {
 
-      if (this.state.componentFactory != null) {
+      if (this.state.component != null) {
         throw new Error(`Cannot set JshCsmContent.component property or have child elements when loading a static HTML page. Page loaded from path "${this.state.pageData.path}"`);
       }
 
@@ -405,8 +431,28 @@ export interface JshCmsContentProps {
    * If the path is empty, then the current URL path will be used.
    * Empty paths will work only when the application paths are setup
    * to match the CMS content paths.
+   *
+   * This does not apply to the editor.
+   * Do not set if setting the page property or
+   * the html property.
    */
   cmsContentPath?: string;
+  /**
+   * Render the static HTML instead of loading it.
+   *
+   * This does not apply to the editor.
+   * Do no set if setting the cmsContentPath or
+   * the page property
+   */
+  html?: string;
+  /**
+   * Render the data defined by the page instead of loading it.
+   *
+   * This does not apply to the editor.
+   * Do no set if setting the cmsContentPath or
+   * the html property
+   */
+  page?: JshCmsPage;
   /**
    * A component is required to load a dynamic page.
    * This can be left undefined for static HTML pages.
@@ -442,7 +488,7 @@ export interface PublishedContentOptions  {
  * @internal
  */
 export interface JshCmsContentState {
-  componentFactory?: () => React.ReactElement<unknown>;
+  component?: React.ReactElement<unknown>;
   loading?: boolean;
   renderType: 'editor' | 'notSet' | 'publish';
   pageData?: {

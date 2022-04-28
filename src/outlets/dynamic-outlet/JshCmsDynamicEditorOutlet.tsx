@@ -45,14 +45,14 @@ export class JshCmsDynamicEditorOutlet extends React.Component<JshCmsDynamicEdit
       );
     }
 
-    this.setState({ componentFactory: this.props.componentFactory });
+    this.setState({ component: this.props.component });
   }
 
   public override componentDidUpdate(prevProps: Readonly<JshCmsDynamicEditorOutletProps>, prevState: Readonly<JshCmsDynamicEditorOutletState>): void {
     // This pattern just ensures that we render the component before
     // initializing the editor and we only initialize the editor
     // after the first render.
-    if (this.state.componentFactory != null && prevState.componentFactory == null) {
+    if (this.state.component != null && prevState.component == null) {
       this.context?.cmsClient.initializeEditor();
     }
   }
@@ -62,26 +62,25 @@ export class JshCmsDynamicEditorOutlet extends React.Component<JshCmsDynamicEdit
   }
 
   public override render(): React.ReactElement {
-    if (this.state.componentFactory == null) {
+    if (this.state.component == null) {
       return <></>;
     }
 
     return (
       <div>
-        {/* { React.createElement(this.state.component, {}) } */}
-        { this.state.componentFactory() }
+        { this.state.component }
       </div>
     );
   }
 }
 
 export interface JshCmsDynamicEditorOutletProps {
-  componentFactory: () => React.ReactElement<unknown>;
+  component: React.ReactElement<unknown>;
 }
 
 /**
  * @internal
  */
 export interface JshCmsDynamicEditorOutletState {
-  componentFactory?: () => React.ReactElement;
+  component?: React.ReactElement<unknown>;
 }
