@@ -24,8 +24,10 @@ const ROOT = nPath.resolve(nPath.join(__dirname, '../'));
 const paths = {
   /** The path to the root of the project */
   root: ROOT,
-  /** The path to the output files */
+  /** The path to the output build files */
   distRoot: nPath.join(ROOT, 'dist'),
+  /** The path to the output documentation files */
+  docsRoot: nPath.join(ROOT, 'docs'),
   /** The path to the root folder for the Gulp files */
   gulpRoot: nPath.join(ROOT, 'gulpfile.js'),
   /** The path to the root folder for source files */

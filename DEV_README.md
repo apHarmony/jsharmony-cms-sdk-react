@@ -8,10 +8,10 @@
 1. run `npm install`
 2. run `npm run build:prod`
 
-
 # Output
 
-All build output is located in `dist/`.
+Build output is located in `dist/`.
+Documentation output is located in `docs/`.
 
 # Publishing
 

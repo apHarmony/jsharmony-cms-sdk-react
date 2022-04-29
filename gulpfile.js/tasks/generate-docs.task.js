@@ -22,7 +22,7 @@ const fs = require('fs-extra');
 const { spawn } = require('child_process');
 const nPath = require('path');
 
-const docsOutputFolder = nPath.join(paths.distRoot, 'docs');
+const docsOutputFolder = paths.docsRoot;
 
 async function generateDocs() {
 
