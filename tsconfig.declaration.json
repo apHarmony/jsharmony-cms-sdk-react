@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "noEmit": false,
     "emitDeclarationOnly": true,
     "outDir": "temp/tsc-out/dts"
   }

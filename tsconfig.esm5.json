@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "noEmit": false,
     "target": "ES5",
-    "outDir": "dist/esm5",
+    "outDir": "temp/tsc-out/es5",
     "declaration": false
   }
 }
