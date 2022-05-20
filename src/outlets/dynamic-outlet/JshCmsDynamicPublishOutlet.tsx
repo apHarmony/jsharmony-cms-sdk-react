@@ -150,7 +150,9 @@ export class JshCmsDynamicPublishOutlet extends React.Component<JshCmsDynamicPub
     };
 
     this.context?.cmsClient.destroyPage();
-    abortable?.exec().then(() => this.props.options?.onAfterRenderData?.(wrapperEl));
+    abortable?.exec()
+      .then(() => this.props.options?.onAfterRenderData?.(wrapperEl))
+      .catch(error => { throw error; });
   }
 
   private setCanonicalUrl(url: string | undefined): HTMLLinkElement | undefined {

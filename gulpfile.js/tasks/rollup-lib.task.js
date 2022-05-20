@@ -68,6 +68,7 @@ function getConfig(format) {
     external: [
       'react',
       'react-dom',
+      'react-router',
       'react-router-dom',
     ],
     plugins: [
@@ -94,7 +95,7 @@ function getConfig(format) {
     }
   } else if (format === 'umd') {
     options.output = {
-      file: path.resolve(paths.distRoot, 'bundle/jsHarmonyCmsSdkReact.umd.js'),
+      file: path.resolve(paths.distRoot, 'bundles/jsHarmonyCmsSdkReact.umd.js'),
       format: 'umd',
       sourcemap: true,
       name: 'jsHarmonyCmsSdkReact',

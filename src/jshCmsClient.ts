@@ -18,7 +18,7 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import 'jsharmony-cms-sdk-clientjs';
-import { Fetch } from './Fetch';
+import { Fetch } from './fetch';
 import { JshCmsAbortable } from './jshCmsAbortable';
 import { JshCmsPage } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
 
@@ -119,6 +119,7 @@ export class JshCmsClient {
           render: {
             css: false,
             elements: {
+              // eslint-disable-next-line @typescript-eslint/naming-convention
               'window-title': false
             },
             seo: {

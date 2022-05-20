@@ -10,6 +10,7 @@ jsharmony-cms-sdk-react
 - [JshCmsContent](classes/JshCmsContent.md)
 - [JshCmsPageConfig](classes/JshCmsPageConfig.md)
 - [JshCmsRoute](classes/JshCmsRoute.md)
+- [JshCmsRouteLinkBinder](classes/JshCmsRouteLinkBinder.md)
 
 ### Interfaces
 

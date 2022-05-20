@@ -6,37 +6,17 @@
 
 ### Properties
 
-- [bindLinks](JshCmsContentProps.md#bindlinks)
 - [cmsContentPath](JshCmsContentProps.md#cmscontentpath)
 - [component](JshCmsContentProps.md#component)
 - [html](JshCmsContentProps.md#html)
 - [page](JshCmsContentProps.md#page)
 - [published](JshCmsContentProps.md#published)
 
+### Methods
+
+- [onLinkActivate](JshCmsContentProps.md#onlinkactivate)
+
 ## Properties
-
-### bindLinks
-
-• `Optional` **bindLinks**: `Object`
-
-Set this using the React Router History and Location
-objects if links should be navigated using React Router.
-The history and location objects can be retrieved from the React Router
-using either the `useHistory` and `useLocation` hooks, or the `withRouter`
-higher-order component.
-
-See [https://v5.reactrouter.com/web/api/withRouter](https://v5.reactrouter.com/web/api/withRouter)
-See [https://v5.reactrouter.com/web/api/Hooks/usehistory](https://v5.reactrouter.com/web/api/Hooks/usehistory)
-See [https://v5.reactrouter.com/web/api/Hooks/uselocation](https://v5.reactrouter.com/web/api/Hooks/uselocation)
-
-#### Type declaration
-
-| Name | Type |
-| :------ | :------ |
-| `history` | `History`<`unknown`\> |
-| `location` | `Location`<`unknown`\> |
-
-___
 
 ### cmsContentPath
 
@@ -96,3 +76,43 @@ ___
 • `Optional` **published**: [`PublishedContentOptions`](PublishedContentOptions.md) & [`PublishedDynamicContentOptions`](PublishedDynamicContentOptions.md) & [`PublishedContentOptions`](PublishedContentOptions.md) & [`PublishedStaticContentOptions`](PublishedStaticContentOptions.md)
 
 Set additional options depending on if rendering dynamic or static content.
+
+## Methods
+
+### onLinkActivate
+
+▸ `Optional` **onLinkActivate**(`event`, `anchorElement`): `void`
+
+The onLinkActivate function can be set for custom link
+handling/router integration.
+
+If integrating with the `react-router-dom@6` then
+it is preferable to use the `JshCmsRoute` component
+instead of the `JshCmsContent` component as it includes
+default link handling for React Router. Alternatively, the
+`JshCmsRouteLinkBinder` can be used to set the `onLinkActivate`
+function with a handler that works with React Router.
+
+Here is an example implementation
+
+**`example`**
+```ts
+function handler(event, anchorElement) {
+  event.preventDefault();
+  const url = anchorElement.getAttribute('href');
+  // myNavigator.navigate would provide custom router
+  // logic to go to `url`.
+  myNavigator.navigate(url);
+}
+```
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `Event` |
+| `anchorElement` | `HTMLAnchorElement` |
+
+#### Returns
+
+`void`
