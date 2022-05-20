@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "noEmit": false,
     "target": "ES2015",
-    "outDir": "dist/esm2015",
+    "outDir": "temp/tsc-out/esm2015",
     "declaration": false
   }
 }

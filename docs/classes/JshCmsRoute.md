@@ -3,24 +3,30 @@
 # Class: JshCmsRoute
 
 Render CMS content within the React Router.
-This component is used in the same way as the
-[React Router Route](https://v5.reactrouter.com/web/api/Route) component
-except it loads and renders CMS content when the path matches.
 
-This component Must have [JshCms](JshCms.md) component as an ancestor.
+This component Must have [JshCms](JshCms.md) component as an ancestor and be within
+a React Router `BrowserRouter` context.
+
+This will automatically bind CMS content links to navigate through the React Router,
+as well as allow the CMS content path and component to be resolved based on the
+current router path.
 
 **`example`**
 ```tsx
  function R() {
    return (
      <BrowserRouter>
-       <Switch>
-         <Route path="/about"><About /></Route>
-         <JshCmsRoute path="/introduction.html" component={Introduction}></JshCmsRoute>
-         <JshCmsRoute path="*"
-           component={resolveCatchAllComponent}
-           cmsContentPath={resolveContentPath}
-           bindLinks={true}/>
+       <Routes>
+         <Route path="/about" element={<About/>}></Route>
+         <Route path="/introduction.html" element={
+           <JshCmsRoute component={Introduction}/>
+         }></Route>
+         // Catch-all path that will dynamically resolve CMS content path and component
+         <Route path="*" element={
+           <JshCmsRoute path="*"
+             component={resolveCatchAllComponent}
+             cmsContentPath={resolveContentPath}/>
+         }></Route>
        </Switch>
      </BrowserRouter>
    );
@@ -44,7 +50,7 @@ This component Must have [JshCms](JshCms.md) component as an ancestor.
    }
  }
 
- function resolveContentPath(location: Location<unknown>): string {
+ function resolveContentPath(location: Location): string {
    if (location.pathname === '/') return '/cms_overview.html';
    return location.pathname;
  }

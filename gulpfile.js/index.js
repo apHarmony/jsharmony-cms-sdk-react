@@ -18,45 +18,81 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 const { series, watch } = require('gulp');
-const { runWebpack, runWebpackWatch } = require('./tasks/webpack.task');
 const { rollupDefinitionFiles } = require('./tasks/rollup-definition-files.task');
 const { copyFiles } = require('./tasks/copy.task');
-const { minifyCmsEditor } = require('./tasks/minify-cms-editor.task');
+const { minify } = require('./tasks/minify.task');
 const { lint, lintFix } = require('./tasks/lint.task');
 const { cleanDist } = require('./tasks/clean-dist.task');
 const { generateTypeDefs } = require('./tasks/generate-type-defs.task');
 const { generateDocs } = require('./tasks/generate-docs.task');
 const { stripPackageJson } = require('./tasks/strip-package-json.task');
+const {
+  runRollupLib,
+  runRollupLibWatchEsmBundle,
+  runRollupLibWatchUmdBundle
+} = require('./tasks/rollup-lib.task');
 
+
+/**
+ * Run this for production build
+ */
 exports['build:prod'] = series(
   lint,
   cleanDist,
-  runWebpack,
+  runRollupLib,
   generateTypeDefs,
   rollupDefinitionFiles,
   generateDocs,
   copyFiles,
   stripPackageJson,
-  minifyCmsEditor
+  minify
 );
 
+/**
+ * This is the normal dev build
+ * to run.
+ */
 exports['build:watch'] = async function() {
 
   await cleanDist();
   await copyFiles();
 
-  runWebpackWatch(async () => {
+  runRollupLibWatchEsmBundle(async () => {
     await generateTypeDefs();
     rollupDefinitionFiles()
   });
 }
 
-exports.extractDefinitions = series(
-  generateTypeDefs,
-  rollupDefinitionFiles
-);
+/**
+ * Run this dev build
+ * instead of build:watch when
+ * testing the UMD output.
+ */
+exports['build:watch:umd'] = async function() {
 
+  await cleanDist();
+  await copyFiles();
+
+  runRollupLibWatchUmdBundle(async () => {
+    await generateTypeDefs();
+    rollupDefinitionFiles()
+  });
+}
+
+/**
+ * Generate documentation.
+ * This runs as part of production build.
+ */
 exports.generateDocs = generateDocs;
-exports.lint = lint
-exports.lintFix = lintFix
+
+/**
+ * Run linter without auto-fix.
+ * This runs as part of production build
+ */
+exports.lint = lint;
+
+/**
+ * Run linter with auto-fix enabled.
+ */
+exports.lintFix = lintFix;
 

@@ -21,7 +21,7 @@ const { ESLint } = require('eslint');
 const nPath = require('path');
 const { paths } = require('../config');
 
-const configFilePath = nPath.join(paths.root, '.eslintrc');
+const configFilePath = nPath.join(paths.root, '.eslintrc.json');
 const ignoreFilePath = nPath.join(paths.root, '.eslintignore');
 
 async function doLint(autoFix) {

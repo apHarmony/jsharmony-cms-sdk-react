@@ -17,9 +17,8 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { History, Location } from 'history';
 import React from 'react';
-import { InternalPassthrough } from './InternalPassthrough';
+import { InternalPassthrough } from './internalPassthrough';
 import { JshCmsClientContext } from './jshCmsClientContext';
 import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynamicEditorOutlet';
 import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
@@ -188,11 +187,11 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
 
     if (element == null) { return; }
 
-    if (this.props.bindLinks != null) {
+    if (this.props.onLinkActivate != null) {
       this._removeLinkEvenHandlers.forEach(f => f());
       this._removeLinkEvenHandlers = [];
-      const { history, location } = this.props.bindLinks;
-      element.querySelectorAll<HTMLAnchorElement>('a').forEach(anchorEl => this.modifyCmsAnchor(anchorEl, location, history));
+      const handler = this.props.onLinkActivate;
+      element.querySelectorAll<HTMLAnchorElement>('a').forEach(anchorEl => this.modifyCmsAnchor(anchorEl, handler));
     }
 
     return this.props.published?.onAfterRenderData?.(element);
@@ -315,54 +314,10 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
     });
   }
 
-  private modifyCmsAnchor(anchorElement: HTMLAnchorElement, location: Location<unknown>, history: History): void {
-    const linkPath = anchorElement.getAttribute('href') ?? '';
-    if (linkPath.length < 1 || this.isPathWithProtocol(linkPath)) { return; }
-
-    let handler: (() => void) | undefined;
-
-    if (linkPath[0] === '#') {
-      handler = () => {
-        // React-router doesn't offer a good way
-        // to handle this.
-        // This will work okay but it doesn't restore
-        // scroll in quite the same way as the browser does.
-        // A more elaborate solution might be possible
-        // using history replace state and saving the scroll position
-        // and then restoring on navigation
-
-        const anchorId = linkPath.slice(1);
-        const anchorTargetEl = document.querySelector(`#${anchorId}`) ??
-          document.querySelector(`[name="${anchorId}"]`);
-
-        anchorTargetEl?.scrollIntoView(true);
-
-        if (location.hash !== linkPath) {
-          history.push({
-            hash: linkPath
-          });
-        }
-      };
-    } else if (linkPath[0] === '/') {
-      const newPath = linkPath;
-      anchorElement.setAttribute('href', newPath);
-      handler = () => {
-        history.push({ pathname: newPath });
-      };
-    }
-
-    if (handler != null) {
-      const clickHandler = (event: MouseEvent) => {
-        event.preventDefault();
-        handler?.();
-      };
-      anchorElement.addEventListener('click', clickHandler);
-      this._removeLinkEvenHandlers.push(() => anchorElement.removeEventListener('click', clickHandler));
-    }
-  }
-
-  private isPathWithProtocol(path: string): boolean {
-    return /^[a-z]+:\//i.test(path);
+  private modifyCmsAnchor(anchorElement: HTMLAnchorElement, handler: (event: Event, anchorElement: HTMLAnchorElement) => void): void {
+     const clickHandler = (event: MouseEvent) => handler(event, anchorElement);
+    anchorElement.addEventListener('click', clickHandler);
+    this._removeLinkEvenHandlers.push(() => anchorElement.removeEventListener('click', clickHandler));
   }
 
   private renderEditor(): React.ReactElement {
@@ -410,18 +365,6 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
  */
 export interface JshCmsContentProps {
   /**
-   * Set this using the React Router History and Location
-   * objects if links should be navigated using React Router.
-   * The history and location objects can be retrieved from the React Router
-   * using either the `useHistory` and `useLocation` hooks, or the `withRouter`
-   * higher-order component.
-   *
-   * See {@link https://v5.reactrouter.com/web/api/withRouter}
-   * See {@link https://v5.reactrouter.com/web/api/Hooks/usehistory}
-   * See {@link https://v5.reactrouter.com/web/api/Hooks/uselocation}
-   */
-  bindLinks?: { history: History; location: Location<unknown>; };
-  /**
    * CMS relative path to the content to load.
    * The path should match the page path configured in the CMS.
    * E.g., '/about/team.html'.
@@ -445,6 +388,30 @@ export interface JshCmsContentProps {
    * the page property
    */
   html?: string;
+  /**
+   * The onLinkActivate function can be set for custom link
+   * handling/router integration.
+   *
+   * If integrating with the `react-router-dom@6` then
+   * it is preferable to use the `JshCmsRoute` component
+   * instead of the `JshCmsContent` component as it includes
+   * default link handling for React Router. Alternatively, the
+   * `JshCmsRouteLinkBinder` can be used to set the `onLinkActivate`
+   * function with a handler that works with React Router.
+   *
+   * Here is an example implementation
+   * @example
+   * ```ts
+   * function handler(event, anchorElement) {
+   *   event.preventDefault();
+   *   const url = anchorElement.getAttribute('href');
+   *   // myNavigator.navigate would provide custom router
+   *   // logic to go to `url`.
+   *   myNavigator.navigate(url);
+   * }
+   * ```
+   */
+   onLinkActivate?: (event: Event, anchorElement: HTMLAnchorElement) => void;
   /**
    * Render the data defined by the page instead of loading it.
    *
