@@ -17,9 +17,13 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-export { JshCmsRoute } from './JshCmsRoute';
+export { JshCmsRoute } from './jshCmsRoute';
 export {
   History,
   JshCmsRouteProps,
   Location
-} from './JshCmsRouteBase';
+} from './jshCmsRouteBase';
+export {
+  JshCmsRouteLinkBinder
+} from './jshCmsRouteLinkBinder';
+
