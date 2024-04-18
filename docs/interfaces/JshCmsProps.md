@@ -7,6 +7,7 @@
 ### Properties
 
 - [accessKeys](JshCmsProps.md#accesskeys)
+- [children](JshCmsProps.md#children)
 - [pageFilesPath](JshCmsProps.md#pagefilespath)
 - [redirectListingPath](JshCmsProps.md#redirectlistingpath)
 
@@ -19,6 +20,14 @@
 CMS Editor Access Keys.
 Not required for static HTML pages.
 Required dynamic and standalone pages.
+
+___
+
+### children
+
+• **children**: `ReactElement`\<`any`, `string` \| `JSXElementConstructor`\<`any`\>\>
+
+The children of this component.
 
 ___
 

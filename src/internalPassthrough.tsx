@@ -46,4 +46,5 @@ export class InternalPassthrough  extends React.Component<InternalPassthroughPro
  */
 export interface InternalPassthroughProps {
   resolvedCmsPath: string;
+  children: React.ReactElement;
 }

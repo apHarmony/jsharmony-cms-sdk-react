@@ -18,14 +18,18 @@ Default link handler for React Router.
 
 ### constructor
 
-• **new JshCmsRouteLinkBinder**(`location`, `navigate`)
+• **new JshCmsRouteLinkBinder**(`location`, `navigate`): [`JshCmsRouteLinkBinder`](JshCmsRouteLinkBinder.md)
 
 #### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `location` | `Location` |
+| `location` | `Location`\<`unknown`\> |
 | `navigate` | `NavigateFunction` |
+
+#### Returns
+
+[`JshCmsRouteLinkBinder`](JshCmsRouteLinkBinder.md)
 
 ## Methods
 

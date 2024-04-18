@@ -46,7 +46,7 @@ import { JshCmsRouteHoc, JshCmsRouteProps } from './jshCmsRouteBase';
  *              component={resolveCatchAllComponent}
  *              cmsContentPath={resolveContentPath}/>
  *          }></Route>
- *        </Switch>
+ *        </Routes>
  *      </BrowserRouter>
  *    );
  *  }

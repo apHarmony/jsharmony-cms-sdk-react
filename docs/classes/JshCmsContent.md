@@ -8,7 +8,8 @@ This component Must have [JshCms](JshCms.md) component as an ancestor.
 
 See [JshCmsContentProps](../interfaces/JshCmsContentProps.md) for all render options.
 
-**`example`**
+**`Example`**
+
 This example shows a standalone component:
 ```tsx
 function Standalone() {
@@ -21,7 +22,7 @@ function Standalone() {
      <JshCmsPageConfig
        config={{
          content: {
-           analytics: "<script cms-component='analytics' cms-component-remove-container><\/script>",
+           analytics: "<script cms-component='analytics' cms-component-remove-container></script>",
          }
        }}
      ></JshCmsPageConfig>
@@ -32,7 +33,8 @@ function Standalone() {
 }
 ```
 
-**`example`**
+**`Example`**
+
 This example shows a dynamic page:
 ```tsx
 function MyTemplate() {
@@ -53,6 +55,6 @@ function MyTemplate() {
 
 ## Hierarchy
 
-- `Component`<[`JshCmsContentProps`](../interfaces/JshCmsContentProps.md), `JshCmsContentState`\>
+- `Component`\<[`JshCmsContentProps`](../interfaces/JshCmsContentProps.md), `JshCmsContentState`\>
 
   ↳ **`JshCmsContent`**

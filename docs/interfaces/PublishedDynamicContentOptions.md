@@ -4,7 +4,7 @@
 
 ## Table of contents
 
-### Methods
+### Properties
 
 - [onAfterRenderData](PublishedDynamicContentOptions.md#onafterrenderdata)
 - [onBeforeRenderData](PublishedDynamicContentOptions.md#onbeforerenderdata)
@@ -13,22 +13,26 @@
 - [onSetMetaKeywords](PublishedDynamicContentOptions.md#onsetmetakeywords)
 - [onSetTitle](PublishedDynamicContentOptions.md#onsettitle)
 
-## Methods
+## Properties
 
 ### onAfterRenderData
 
-▸ `Optional` **onAfterRenderData**(`element`): `void`
+• `Optional` **onAfterRenderData**: (`element`: ``null`` \| `HTMLDivElement`) => `void`
 
 This function is called after rendering the page.
 Can be used for various post-processing tasks.
 
-#### Parameters
+#### Type declaration
+
+▸ (`element`): `void`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `element` | ``null`` \| `HTMLDivElement` |
 
-#### Returns
+##### Returns
 
 `void`
 
@@ -36,18 +40,22 @@ ___
 
 ### onBeforeRenderData
 
-▸ `Optional` **onBeforeRenderData**(`pageData`): [`JshCmsPage`](JshCmsPage.md)
+• `Optional` **onBeforeRenderData**: (`pageData`: [`JshCmsPage`](JshCmsPage.md)) => [`JshCmsPage`](JshCmsPage.md)
 
 This function is called before rendering the page.
 Can be used for various pre-processing tasks.
 
-#### Parameters
+#### Type declaration
+
+▸ (`pageData`): [`JshCmsPage`](JshCmsPage.md)
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `pageData` | [`JshCmsPage`](JshCmsPage.md) |
 
-#### Returns
+##### Returns
 
 [`JshCmsPage`](JshCmsPage.md)
 
@@ -55,7 +63,7 @@ ___
 
 ### onSetCanonicalUrl
 
-▸ `Optional` **onSetCanonicalUrl**(`url`): `void`
+• `Optional` **onSetCanonicalUrl**: (`url`: `string`) => `void`
 
 Set this function to manually handle
 canonical url changes. If not set
@@ -63,13 +71,17 @@ then the <link rel="canonical" href="canonical-url">
 tag will be updated or added when
 CMS content loads.
 
-#### Parameters
+#### Type declaration
+
+▸ (`url`): `void`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `url` | `string` |
 
-#### Returns
+##### Returns
 
 `void`
 
@@ -77,7 +89,7 @@ ___
 
 ### onSetMetaDescription
 
-▸ `Optional` **onSetMetaDescription**(`description`): `void`
+• `Optional` **onSetMetaDescription**: (`description`: `string`) => `void`
 
 Set this function to manually handle
 meta description changes. If not set
@@ -85,13 +97,17 @@ then the <meta name="description" content="">
 header tag will be updated or added when
 CMS content loads.
 
-#### Parameters
+#### Type declaration
+
+▸ (`description`): `void`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `description` | `string` |
 
-#### Returns
+##### Returns
 
 `void`
 
@@ -99,7 +115,7 @@ ___
 
 ### onSetMetaKeywords
 
-▸ `Optional` **onSetMetaKeywords**(`keywords`): `void`
+• `Optional` **onSetMetaKeywords**: (`keywords`: `string`) => `void`
 
 Set this function to manually handle
 meta keywords changes. If not set
@@ -107,13 +123,17 @@ then the <meta name="keywords" content="">
 header tag will be updated or added when
 CMS content loads.
 
-#### Parameters
+#### Type declaration
+
+▸ (`keywords`): `void`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `keywords` | `string` |
 
-#### Returns
+##### Returns
 
 `void`
 
@@ -121,19 +141,23 @@ ___
 
 ### onSetTitle
 
-▸ `Optional` **onSetTitle**(`title`): `void`
+• `Optional` **onSetTitle**: (`title`: `string`) => `void`
 
 Set this function to manually handle
 title changes. Otherwise the document
 title will automatically be set when
 the CMS content loads.
 
-#### Parameters
+#### Type declaration
+
+▸ (`title`): `void`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `title` | `string` |
 
-#### Returns
+##### Returns
 
 `void`

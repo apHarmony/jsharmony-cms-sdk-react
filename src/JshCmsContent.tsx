@@ -20,9 +20,9 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 import React from 'react';
 import { InternalPassthrough } from './internalPassthrough';
 import { JshCmsClientContext } from './jshCmsClientContext';
+import { JshCmsStaticOutlet, PublishedStaticContentOptions } from './outlets/JshCmsStaticOutlet';
 import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynamicEditorOutlet';
 import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
-import { JshCmsStaticOutlet, PublishedStaticContentOptions } from './outlets/JshCmsStaticOutlet';
 
 /**
  * Load and render CMS content.
@@ -223,7 +223,7 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
         // It is impossible to tell a function component from the ((templateId, path) => React.JSXElementConstructor<unknown>)
         // function. So try to call it and look at the return value.
         try {
-          const retVal =  (this.props.component as (a: string, b: string) => (React.JSXElementConstructor<unknown> |  React.ReactElement))(templateId, path);
+          const retVal =  (this.props.component as (a: string, b: string) => (React.ComponentClass<unknown> | React.FunctionComponent<unknown> | string))(templateId, path);
           if (retVal == null) {
             return undefined;
           } else if (React.isValidElement(retVal)) {
@@ -431,6 +431,10 @@ export interface JshCmsContentProps {
    * Set additional options depending on if rendering dynamic or static content.
    */
   published?: PublishedContentOptions & (PublishedDynamicContentOptions | PublishedStaticContentOptions);
+  /**
+   * The children of this component.
+   */
+  children?: React.ReactElement;
 }
 
 /**

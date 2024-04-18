@@ -8,7 +8,8 @@ the correct context to render CMS content.
 This class must be an ancestor of all CMS content.
 It should be near the root of the React application.
 
-**`example`**
+**`Example`**
+
 ```tsx
 <Application>
  <JshCms
@@ -22,6 +23,6 @@ It should be near the root of the React application.
 
 ## Hierarchy
 
-- `Component`<[`JshCmsProps`](../interfaces/JshCmsProps.md), `JshCmsState`\>
+- `Component`\<[`JshCmsProps`](../interfaces/JshCmsProps.md), `JshCmsState`\>
 
   ↳ **`JshCms`**
