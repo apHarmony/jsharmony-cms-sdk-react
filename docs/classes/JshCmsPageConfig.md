@@ -7,7 +7,8 @@ for a template.
 
 Use within a [JshCmsContent](JshCmsContent.md) component.
 
-**`example`**
+**`Example`**
+
 ```tsx
 function Standalone() {
   return (
@@ -15,7 +16,7 @@ function Standalone() {
      <JshCmsPageConfig
        config={{
          content: {
-           analytics: "<script cms-component='analytics' cms-component-remove-container><\/script>",
+           analytics: "<script cms-component='analytics' cms-component-remove-container></script>",
          }
        }}
      ></JshCmsPageConfig>
@@ -28,6 +29,6 @@ function Standalone() {
 
 ## Hierarchy
 
-- `Component`<[`JshCmsPageConfigProps`](../interfaces/JshCmsPageConfigProps.md), `never`\>
+- `Component`\<[`JshCmsPageConfigProps`](../interfaces/JshCmsPageConfigProps.md), `never`\>
 
   ↳ **`JshCmsPageConfig`**

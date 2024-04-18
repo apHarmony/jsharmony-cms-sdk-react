@@ -6,17 +6,23 @@
 
 ### Properties
 
+- [children](JshCmsContentProps.md#children)
 - [cmsContentPath](JshCmsContentProps.md#cmscontentpath)
 - [component](JshCmsContentProps.md#component)
 - [html](JshCmsContentProps.md#html)
+- [onLinkActivate](JshCmsContentProps.md#onlinkactivate)
 - [page](JshCmsContentProps.md#page)
 - [published](JshCmsContentProps.md#published)
 
-### Methods
-
-- [onLinkActivate](JshCmsContentProps.md#onlinkactivate)
-
 ## Properties
+
+### children
+
+• `Optional` **children**: `ReactElement`\<`any`, `string` \| `JSXElementConstructor`\<`any`\>\>
+
+The children of this component.
+
+___
 
 ### cmsContentPath
 
@@ -40,7 +46,7 @@ ___
 
 ### component
 
-• `Optional` **component**: `JSXElementConstructor`<`unknown`\> \| (`templateName`: `string`, `contentPath`: `string`) => `undefined` \| `JSXElementConstructor`<`unknown`\>
+• `Optional` **component**: `JSXElementConstructor`\<`unknown`\> \| (`templateName`: `string`, `contentPath`: `string`) => JSXElementConstructor\<unknown\> \| undefined
 
 A component is required to load a dynamic page.
 This can be left undefined for static HTML pages.
@@ -59,6 +65,51 @@ the page property
 
 ___
 
+### onLinkActivate
+
+• `Optional` **onLinkActivate**: (`event`: `Event`, `anchorElement`: `HTMLAnchorElement`) => `void`
+
+The onLinkActivate function can be set for custom link
+handling/router integration.
+
+If integrating with the `react-router-dom@6` then
+it is preferable to use the `JshCmsRoute` component
+instead of the `JshCmsContent` component as it includes
+default link handling for React Router. Alternatively, the
+`JshCmsRouteLinkBinder` can be used to set the `onLinkActivate`
+function with a handler that works with React Router.
+
+Here is an example implementation
+
+**`Example`**
+
+```ts
+function handler(event, anchorElement) {
+  event.preventDefault();
+  const url = anchorElement.getAttribute('href');
+  // myNavigator.navigate would provide custom router
+  // logic to go to `url`.
+  myNavigator.navigate(url);
+}
+```
+
+#### Type declaration
+
+▸ (`event`, `anchorElement`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `Event` |
+| `anchorElement` | `HTMLAnchorElement` |
+
+##### Returns
+
+`void`
+
+___
+
 ### page
 
 • `Optional` **page**: [`JshCmsPage`](JshCmsPage.md)
@@ -73,46 +124,6 @@ ___
 
 ### published
 
-• `Optional` **published**: [`PublishedContentOptions`](PublishedContentOptions.md) & [`PublishedDynamicContentOptions`](PublishedDynamicContentOptions.md) & [`PublishedContentOptions`](PublishedContentOptions.md) & [`PublishedStaticContentOptions`](PublishedStaticContentOptions.md)
+• `Optional` **published**: PublishedContentOptions & (PublishedDynamicContentOptions \| PublishedStaticContentOptions)
 
 Set additional options depending on if rendering dynamic or static content.
-
-## Methods
-
-### onLinkActivate
-
-▸ `Optional` **onLinkActivate**(`event`, `anchorElement`): `void`
-
-The onLinkActivate function can be set for custom link
-handling/router integration.
-
-If integrating with the `react-router-dom@6` then
-it is preferable to use the `JshCmsRoute` component
-instead of the `JshCmsContent` component as it includes
-default link handling for React Router. Alternatively, the
-`JshCmsRouteLinkBinder` can be used to set the `onLinkActivate`
-function with a handler that works with React Router.
-
-Here is an example implementation
-
-**`example`**
-```ts
-function handler(event, anchorElement) {
-  event.preventDefault();
-  const url = anchorElement.getAttribute('href');
-  // myNavigator.navigate would provide custom router
-  // logic to go to `url`.
-  myNavigator.navigate(url);
-}
-```
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `event` | `Event` |
-| `anchorElement` | `HTMLAnchorElement` |
-
-#### Returns
-
-`void`

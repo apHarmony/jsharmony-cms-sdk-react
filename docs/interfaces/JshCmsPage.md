@@ -64,7 +64,7 @@ ___
 
 #### Index signature
 
-▪ [propName: `string`]: `Record`<`string`, `unknown`\>
+▪ [propName: `string`]: `Record`\<`string`, `unknown`\>
 
 ___
 

@@ -86,6 +86,8 @@ export interface JshCmsProps {
   pageFilesPath: string;
   /** URL to redirect listing JSON file. E.g., 'jshcms_redirects.json' */
   redirectListingPath?: string;
+  /** The children of this component.*/
+  children: React.ReactElement;
 }
 
 /**

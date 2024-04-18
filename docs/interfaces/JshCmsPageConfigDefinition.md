@@ -37,7 +37,7 @@ a default content area named "body" will be added.
 
 #### Index signature
 
-▪ [content_area_name: `string`]: { `editor_toolbar?`: { `dock?`: ``"auto"`` \| ``"bottom"`` \| ``"top_offset"`` \| ``"top"`` ; `show_menu?`: `boolean` ; `show_toolbar?`: `boolean`  } ; `title?`: `string` ; `type?`: ``"htmleditor"`` \| ``"text"``  }
+▪ [content_area_name: `string`]: \{ `editor_toolbar?`: \{ `dock?`: ``"auto"`` \| ``"bottom"`` \| ``"top_offset"`` \| ``"top"`` ; `show_menu?`: `boolean` ; `show_toolbar?`: `boolean`  } ; `title?`: `string` ; `type?`: ``"htmleditor"`` \| ``"text"``  }
 
 ___
 

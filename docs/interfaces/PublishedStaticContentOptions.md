@@ -4,25 +4,29 @@
 
 ## Table of contents
 
-### Methods
+### Properties
 
 - [onAfterRenderData](PublishedStaticContentOptions.md#onafterrenderdata)
 
-## Methods
+## Properties
 
 ### onAfterRenderData
 
-▸ `Optional` **onAfterRenderData**(`element`): `void`
+• `Optional` **onAfterRenderData**: (`element`: ``null`` \| `HTMLDivElement`) => `void`
 
 This function is called after rendering the page.
 Can be used for various post-processing tasks.
 
-#### Parameters
+#### Type declaration
+
+▸ (`element`): `void`
+
+##### Parameters
 
 | Name | Type |
 | :------ | :------ |
 | `element` | ``null`` \| `HTMLDivElement` |
 
-#### Returns
+##### Returns
 
 `void`

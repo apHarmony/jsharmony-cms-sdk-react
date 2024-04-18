@@ -7,6 +7,7 @@
 ### Properties
 
 - [bindLinks](JshCmsRouteProps.md#bindlinks)
+- [children](JshCmsRouteProps.md#children)
 - [cmsContentPath](JshCmsRouteProps.md#cmscontentpath)
 - [component](JshCmsRouteProps.md#component)
 - [options](JshCmsRouteProps.md#options)
@@ -25,9 +26,17 @@ to false to prevent link binding.
 
 ___
 
+### children
+
+• `Optional` **children**: `ReactElement`\<`any`, `string` \| `JSXElementConstructor`\<`any`\>\>
+
+The children of this component.
+
+___
+
 ### cmsContentPath
 
-• `Optional` **cmsContentPath**: `string` \| (`location`: `Location`) => `undefined` \| `string`
+• `Optional` **cmsContentPath**: `string` \| (`location`: `Location`\<`unknown`\>) => `undefined` \| `string`
 
 This sets the path of the CMS content to load.
 E.g., '/about/team.html'.
@@ -41,7 +50,7 @@ ___
 
 ### component
 
-• `Optional` **component**: `JSXElementConstructor`<`unknown`\> \| (`templateName`: `string`, `contentPath`: `string`) => `undefined` \| `JSXElementConstructor`<`unknown`\>
+• `Optional` **component**: `JSXElementConstructor`\<`unknown`\> \| (`templateName`: `string`, `contentPath`: `string`) => JSXElementConstructor\<unknown\> \| undefined
 
 A component is required to load a dynamic page.
 This can be left undefined for static HTML pages.
@@ -50,4 +59,4 @@ ___
 
 ### options
 
-• `Optional` **options**: [`PublishedContentOptions`](PublishedContentOptions.md) & [`PublishedDynamicContentOptions`](PublishedDynamicContentOptions.md) & [`PublishedContentOptions`](PublishedContentOptions.md) & [`PublishedStaticContentOptions`](PublishedStaticContentOptions.md)
+• `Optional` **options**: PublishedContentOptions & (PublishedDynamicContentOptions \| PublishedStaticContentOptions)

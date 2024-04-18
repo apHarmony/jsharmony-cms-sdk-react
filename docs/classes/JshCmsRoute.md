@@ -11,7 +11,8 @@ This will automatically bind CMS content links to navigate through the React Rou
 as well as allow the CMS content path and component to be resolved based on the
 current router path.
 
-**`example`**
+**`Example`**
+
 ```tsx
  function R() {
    return (
@@ -27,7 +28,7 @@ current router path.
              component={resolveCatchAllComponent}
              cmsContentPath={resolveContentPath}/>
          }></Route>
-       </Switch>
+       </Routes>
      </BrowserRouter>
    );
  }
@@ -58,6 +59,6 @@ current router path.
 
 ## Hierarchy
 
-- `Component`<[`JshCmsRouteProps`](../interfaces/JshCmsRouteProps.md), `never`\>
+- `Component`\<[`JshCmsRouteProps`](../interfaces/JshCmsRouteProps.md), `never`\>
 
   ↳ **`JshCmsRoute`**
