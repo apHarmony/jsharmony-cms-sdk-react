@@ -18,8 +18,8 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React from 'react';
-import { InternalPassthrough } from './internalPassthrough';
-import { JshCmsClientContext } from './jshCmsClientContext';
+import { InternalPassthrough } from './InternalPassthrough';
+import { JshCmsClientContext } from './JshCmsClientContext';
 import { JshCmsStaticOutlet, PublishedStaticContentOptions } from './outlets/JshCmsStaticOutlet';
 import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynamicEditorOutlet';
 import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
@@ -36,11 +36,11 @@ import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions 
  * ```tsx
  * function Standalone() {
  *   // This is optional. Using React Router hooks to handle link binding.
- *   const history = useHistory();
+ *   const navigate = useNavigate();
  *   const location = useLocation();
  *
  *   return (
- *    <JshCmsContent bindLinks={{ history, location }}>
+ *    <JshCmsContent bindLinks={{ navigate, location }}>
  *      <JshCmsPageConfig
  *        config={{
  *          content: {
@@ -434,7 +434,7 @@ export interface JshCmsContentProps {
   /**
    * The children of this component.
    */
-  children?: React.ReactElement;
+  children?: React.ReactElement | React.ReactElement[];
 }
 
 /**

@@ -25,7 +25,7 @@ ___
 
 ### children
 
-• **children**: `ReactElement`\<`any`, `string` \| `JSXElementConstructor`\<`any`\>\>
+• `Optional` **children**: `ReactElement`\<`any`, `string` \| `JSXElementConstructor`\<`any`\>\> \| `ReactElement`\<`any`, `string` \| `JSXElementConstructor`\<`any`\>\>[]
 
 The children of this component.
 

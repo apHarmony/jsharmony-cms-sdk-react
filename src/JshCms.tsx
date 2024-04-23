@@ -18,8 +18,8 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React from 'react';
-import { JshCmsClient } from './jshCmsClient';
-import { JshCmsClientContext, JshCmsClientContextData } from './jshCmsClientContext';
+import { JshCmsClient } from './JshCmsClient';
+import { JshCmsClientContext, JshCmsClientContextData } from './JshCmsClientContext';
 
 /**
  * This is the root CMS root component that provides
@@ -87,7 +87,7 @@ export interface JshCmsProps {
   /** URL to redirect listing JSON file. E.g., 'jshcms_redirects.json' */
   redirectListingPath?: string;
   /** The children of this component.*/
-  children: React.ReactElement;
+  children?: React.ReactElement | React.ReactElement[];
 }
 
 /**

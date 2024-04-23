@@ -18,8 +18,8 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import 'jsharmony-cms-sdk-clientjs';
+import { JshCmsAbortable } from './JshCmsAbortable';
 import { Fetch } from './fetch';
-import { JshCmsAbortable } from './jshCmsAbortable';
 import { JshCmsPage } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
 
 /**

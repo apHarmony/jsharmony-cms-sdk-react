@@ -20,13 +20,13 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 import { Location } from 'history';
 import React from 'react';
 import { Navigate, NavigateFunction, Params, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { InternalPassthrough } from '../InternalPassthrough';
+import { JshCmsClientContext } from '../JshCmsClientContext';
 import { JshCmsContent, PublishedContentOptions } from '../JshCmsContent';
 import { IframeWrapper } from '../iframeWrapper';
-import { InternalPassthrough } from '../internalPassthrough';
-import { JshCmsClientContext } from '../jshCmsClientContext';
 import { PublishedStaticContentOptions } from '../outlets/JshCmsStaticOutlet';
 import { PublishedDynamicContentOptions } from '../outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
-import { JshCmsRouteLinkBinder } from './jshCmsRouteLinkBinder';
+import { JshCmsRouteLinkBinder } from './JshCmsRouteLinkBinder';
 export { History, Location } from 'history';
 
 export class JshCmsRouteBase extends React.Component<JshCmsRouteBaseProps, JshCmsRouteState> {
@@ -251,7 +251,7 @@ export interface JshCmsRouteProps {
   /**
    * The children of this component.
    */
-  children?: React.ReactElement;
+  children?: React.ReactElement | React.ReactElement[];
 }
 
 
