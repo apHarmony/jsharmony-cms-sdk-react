@@ -18,21 +18,21 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 export { JshCms, JshCmsProps, JshCmsState } from './JshCms';
-export { JshCmsAbortable } from './jshCmsAbortable';
+export { JshCmsAbortable } from './JshCmsAbortable';
 export {
   JshCmsClient,
   JshCmsClientArgs,
   JshCmsRedirectData,
   JshCmsResolvedRedirect
-} from './jshCmsClient';
-export { JshCmsClientContext, JshCmsClientContextData } from './jshCmsClientContext';
+} from './JshCmsClient';
+export { JshCmsClientContext, JshCmsClientContextData } from './JshCmsClientContext';
 export {
   JshCmsContent,
   JshCmsContentProps,
   JshCmsContentState,
   PublishedContentOptions
 } from './JshCmsContent';
-export { JshCmsPageConfig, JshCmsPageConfigDefinition, JshCmsPageConfigProps } from './jshCmsPageConfig';
+export { JshCmsPageConfig, JshCmsPageConfigDefinition, JshCmsPageConfigProps } from './JshCmsPageConfig';
 export * from './outlets/public-api';
 export * from './route/public-api';
 

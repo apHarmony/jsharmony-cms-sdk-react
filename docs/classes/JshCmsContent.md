@@ -14,11 +14,11 @@ This example shows a standalone component:
 ```tsx
 function Standalone() {
   // This is optional. Using React Router hooks to handle link binding.
-  const history = useHistory();
+  const navigate = useNavigate();
   const location = useLocation();
 
   return (
-   <JshCmsContent bindLinks={{ history, location }}>
+   <JshCmsContent bindLinks={{ navigate, location }}>
      <JshCmsPageConfig
        config={{
          content: {

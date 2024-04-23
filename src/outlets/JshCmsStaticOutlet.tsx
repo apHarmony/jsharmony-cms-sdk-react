@@ -18,7 +18,7 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React from 'react';
-import { JshCmsClientContext } from '../jshCmsClientContext';
+import { JshCmsClientContext } from '../JshCmsClientContext';
 
 export class JshCmsStaticOutlet extends React.Component<JshCmsStaticOutletProps, JshCmsStaticOutletState> {
 
