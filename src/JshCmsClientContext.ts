@@ -18,7 +18,7 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React from 'react';
-import { JshCmsClient } from './jshCmsClient';
+import { JshCmsClient } from './JshCmsClient';
 
 /**
  * @internal

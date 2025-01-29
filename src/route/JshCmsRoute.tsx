@@ -18,7 +18,7 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React from 'react';
-import { JshCmsRouteHoc, JshCmsRouteProps } from './jshCmsRouteBase';
+import { JshCmsRouteHoc, JshCmsRouteProps } from './JshCmsRouteBase';
 
 /**
  * Render CMS content within the React Router.
