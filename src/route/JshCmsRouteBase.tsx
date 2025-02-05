@@ -17,17 +17,16 @@ You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { Location } from 'history';
 import React from 'react';
-import { Navigate, NavigateFunction, Params, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Location, Navigate, NavigateFunction, Params, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { IframeWrapper } from '../iframeWrapper';
 import { InternalPassthrough } from '../InternalPassthrough';
 import { JshCmsClientContext } from '../JshCmsClientContext';
 import { JshCmsContent, PublishedContentOptions } from '../JshCmsContent';
-import { IframeWrapper } from '../iframeWrapper';
-import { PublishedStaticContentOptions } from '../outlets/JshCmsStaticOutlet';
 import { PublishedDynamicContentOptions } from '../outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
+import { PublishedStaticContentOptions } from '../outlets/JshCmsStaticOutlet';
 import { JshCmsRouteLinkBinder } from './JshCmsRouteLinkBinder';
-export { History, Location } from 'history';
+export { Location } from 'react-router-dom';
 
 export class JshCmsRouteBase extends React.Component<JshCmsRouteBaseProps, JshCmsRouteState> {
 

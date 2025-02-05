@@ -100,7 +100,6 @@ function getConfig(format) {
       sourcemap: true,
       name: 'jsHarmonyCmsSdkReact',
       globals: {
-        history: 'HistoryLibrary',
         react: 'React',
         'react-router-dom': 'ReactRouterDom'
       }

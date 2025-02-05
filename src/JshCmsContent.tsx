@@ -20,9 +20,9 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 import React from 'react';
 import { InternalPassthrough } from './InternalPassthrough';
 import { JshCmsClientContext } from './JshCmsClientContext';
-import { JshCmsStaticOutlet, PublishedStaticContentOptions } from './outlets/JshCmsStaticOutlet';
 import { JshCmsDynamicEditorOutlet } from './outlets/dynamic-outlet/JshCmsDynamicEditorOutlet';
 import { JshCmsDynamicPublishOutlet, JshCmsPage, PublishedDynamicContentOptions } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
+import { JshCmsStaticOutlet, PublishedStaticContentOptions } from './outlets/JshCmsStaticOutlet';
 
 /**
  * Load and render CMS content.

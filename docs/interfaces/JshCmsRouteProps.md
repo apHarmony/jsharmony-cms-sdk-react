@@ -36,7 +36,7 @@ ___
 
 ### cmsContentPath
 
-• `Optional` **cmsContentPath**: `string` \| (`location`: `Location`\<`unknown`\>) => `undefined` \| `string`
+• `Optional` **cmsContentPath**: `string` \| (`location`: `Location`\<`any`\>) => `undefined` \| `string`
 
 This sets the path of the CMS content to load.
 E.g., '/about/team.html'.

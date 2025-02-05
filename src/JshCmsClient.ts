@@ -18,8 +18,8 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import 'jsharmony-cms-sdk-clientjs';
-import { JshCmsAbortable } from './JshCmsAbortable';
 import { Fetch } from './fetch';
+import { JshCmsAbortable } from './JshCmsAbortable';
 import { JshCmsPage } from './outlets/dynamic-outlet/JshCmsDynamicPublishOutlet';
 
 /**
@@ -66,7 +66,15 @@ export class JshCmsClient {
   }
 
   public getPageContent(path: string): JshCmsAbortable<string | undefined> {
-
+    interface GlobalBase {
+      jsHarmonyCmsRouters: {
+        [key: string]: boolean;
+      };
+    }
+    const globalBase = globalThis as unknown as GlobalBase;
+    if (!globalBase.jsHarmonyCmsRouters){ globalBase.jsHarmonyCmsRouters = {}; }
+    globalBase.jsHarmonyCmsRouters.main = true;
+    if ('main' in globalBase.jsHarmonyCmsRouters){ return new JshCmsAbortable(() => Promise.resolve(undefined)); }
     path = this._cmsClient.resolve(path, {});
     const fetchAbortable = Fetch.get(path);
 

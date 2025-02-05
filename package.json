@@ -1,6 +1,6 @@
 {
   "name": "jsharmony-cms-sdk-react",
-  "version": "2.1.0",
+  "version": "2.1.2",
   "description": "jsHarmony CMS SDK for React",
   "main": "dist/bundles/jsHarmonyCmsSdkReact.umd.js",
   "module": "dist/fesm2015/jsHarmonyCmsSdkReact.js",
@@ -46,7 +46,6 @@
     "@types/node": "^16.11.6",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
-    "@types/react-router-dom": "^5.3.3",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "cpx": "^1.5.0",

@@ -16,8 +16,7 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with this package.  If not, see <http://www.gnu.org/licenses/>.
 */
-import { Location } from 'history';
-import { NavigateFunction } from 'react-router-dom';
+import { NavigateFunction, Location } from 'react-router-dom';
 
 /**
  * Default link handler for React Router.

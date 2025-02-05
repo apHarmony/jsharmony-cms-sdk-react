@@ -24,7 +24,7 @@ Default link handler for React Router.
 
 | Name | Type |
 | :------ | :------ |
-| `location` | `Location`\<`unknown`\> |
+| `location` | `Location`\<`any`\> |
 | `navigate` | `NavigateFunction` |
 
 #### Returns

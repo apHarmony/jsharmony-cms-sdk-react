@@ -19,7 +19,6 @@ along with this package.  If not, see <http://www.gnu.org/licenses/>.
 
 export { JshCmsRoute } from './JshCmsRoute';
 export {
-  History,
   JshCmsRouteProps,
   Location
 } from './JshCmsRouteBase';
