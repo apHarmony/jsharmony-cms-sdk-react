@@ -348,7 +348,7 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
     } else if (this.state.pageData?.staticHtml != null) {
 
       if (this.state.component != null) {
-        throw new Error(`Cannot set JshCsmContent.component property or have child elements when loading a static HTML page. Page loaded from path "${this.state.pageData.path}"`);
+        throw new Error(`Cannot set JshCmsContent.component property or have child elements when loading a static HTML page. Page loaded from path "${this.state.pageData.path}"`);
       }
 
       return (

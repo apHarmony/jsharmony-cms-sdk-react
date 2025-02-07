@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /*!
 Copyright 2025 apHarmony
 
@@ -48,7 +49,7 @@ if(cmd == 'editor'){
   }
   var tgtFile = path.join(tgtPath, 'jsHarmonyCmsEditor.js');
   if(fs.existsSync(tgtFile)){ console.log('File already exists: '+tgtFile); return; }
-  fs.writeFileSync(tgtFile, fs.readFileSync(path.join(__dirname, '../lib/jsHarmonyCmsEditor.js'), 'utf8'), 'utf8');
+  fs.writeFileSync(tgtFile, fs.readFileSync(path.join(__dirname, '../jsHarmonyCmsEditor.js'), 'utf8'), 'utf8');
   console.log('Saved editor to: '+tgtFile);
 }
 else {
