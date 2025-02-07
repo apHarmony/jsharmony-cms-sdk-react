@@ -36,7 +36,7 @@
     "extractDefinitions": "gulp extractDefinitions",
     "generateDocs": "gulp generateDocs",
     "lint": "gulp lint",
-    "lint:fix": "gulp lint:fix"
+    "lint:fix": "gulp lintFix"
   },
   "peerDependencies": {
     "react": ">=18.x.x <19.x.x",
