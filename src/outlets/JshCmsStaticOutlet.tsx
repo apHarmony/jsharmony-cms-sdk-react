@@ -91,6 +91,17 @@ export class JshCmsStaticOutlet extends React.Component<JshCmsStaticOutletProps,
     return elements;
   }
 
+  private removeDuplicateScripts(doc: Document | undefined): void {
+    if (!doc) {return;}
+    const oldScripts: { [key: string]: boolean } = {};
+    Array.from(document.getElementsByTagName('script')).map(script => { oldScripts[script.src] = true; });
+    Array.from(doc.getElementsByTagName('script')).forEach(el => {
+      if (el.src && (el.src in oldScripts)){
+        el.parentNode?.removeChild(el);
+      }
+    });
+  }
+
   private loadContent(): void {
 
     this._removeHeadElements?.();
@@ -100,7 +111,11 @@ export class JshCmsStaticOutlet extends React.Component<JshCmsStaticOutletProps,
       return;
     }
 
-    const doc = new DOMParser().parseFromString(this.props.html, 'text/html');
+    let doc = new DOMParser().parseFromString(this.props.html, 'text/html');
+    if (!doc.head.children.length && !doc.body.children.length){
+      doc = new DOMParser().parseFromString(`<div>${this.props.html}</div>`, 'text/html');
+    }
+    this.removeDuplicateScripts(doc);
     const headElements = this.appendHeadElements(doc.head.children);
     this._removeHeadElements = () => {
       headElements.forEach(el => el.remove());

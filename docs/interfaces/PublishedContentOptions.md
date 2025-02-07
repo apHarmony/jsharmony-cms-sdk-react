@@ -47,13 +47,13 @@ ___
 
 ### onPageNotFound
 
-• `Optional` **onPageNotFound**: (`path`: `string`) => `void`
+• `Optional` **onPageNotFound**: (`path`: `string`) => `undefined` \| `string` \| [`JshCmsPage`](JshCmsPage.md)
 
 This is called if the CMS content is not found.
 
 #### Type declaration
 
-▸ (`path`): `void`
+▸ (`path`): `undefined` \| `string` \| [`JshCmsPage`](JshCmsPage.md)
 
 ##### Parameters
 
@@ -63,7 +63,7 @@ This is called if the CMS content is not found.
 
 ##### Returns
 
-`void`
+`undefined` \| `string` \| [`JshCmsPage`](JshCmsPage.md)
 
 ___
 

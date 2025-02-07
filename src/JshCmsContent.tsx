@@ -245,6 +245,10 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
     let staticHtml: string | undefined;
     let page: JshCmsPage | undefined;
 
+    if ((typeof content !== 'string') && (typeof content !== 'object')) {
+      content = this.props.published?.onPageNotFound?.(path ?? '');
+    }
+
     if (typeof content === 'string') {
       componentFactory = this.getComponentFactory('', path ?? '');
       staticHtml = content;
@@ -257,8 +261,6 @@ export class JshCmsContent extends React.Component<JshCmsContentProps, JshCmsCon
         console.error(error);
         throw error;
       }
-    } else {
-      this.props.published?.onPageNotFound?.(path ?? '')
     }
 
     this.setState({
@@ -450,7 +452,7 @@ export interface PublishedContentOptions  {
    */
   onLoadingChange?: (loading: boolean) => void;
   /** This is called if the CMS content is not found. */
-  onPageNotFound?: (path: string) => void;
+  onPageNotFound?: (path: string) => JshCmsPage | string | undefined;
   /** If set then this will be rendered when no data is found for a given path. */
   pageNotFoundElement?: React.ReactElement
 }

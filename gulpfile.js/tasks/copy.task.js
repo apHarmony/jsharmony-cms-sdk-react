@@ -26,10 +26,13 @@ const fileList = [
   { src: './LICENSE', dest: './LICENSE' },
   { src: './package.json', dest: './package.json'},
   { src: './lib/jsHarmonyCmsEditor.js', dest: './jsHarmonyCmsEditor.js'},
+  { src: './bin/jsharmony-cms-sdk-react.js', dest: './bin/jsharmony-cms-sdk-react.js' },
 ];
 
 
 async function copyFiles() {
+
+  await fs.mkdir(nPath.resolve(nPath.join(paths.distRoot, './bin')));
 
   for (let i = 0; i < fileList.length; i++) {
 

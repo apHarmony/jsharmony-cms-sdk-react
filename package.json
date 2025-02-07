@@ -1,6 +1,6 @@
 {
   "name": "jsharmony-cms-sdk-react",
-  "version": "2.1.2",
+  "version": "2.1.10",
   "description": "jsHarmony CMS SDK for React",
   "main": "dist/bundles/jsHarmonyCmsSdkReact.umd.js",
   "module": "dist/fesm2015/jsHarmonyCmsSdkReact.js",
@@ -23,10 +23,15 @@
   "bugs": {
     "url": "https://github.com/apHarmony/jsharmony-cms-sdk-react/issues"
   },
+  "bin": {
+    "jsharmony-cms-sdk-react": "./bin/jsharmony-cms-sdk-react.js"
+  },
   "homepage": "https://github.com/apHarmony/jsharmony-cms-sdk-react",
   "typings": "jsHarmonyCmsSdkReact.d.ts",
   "scripts": {
     "build:watch": "gulp build:watch",
+    "build:watch:esm": "gulp build:watch:esm",
+    "build:watch:umd": "gulp build:watch:umd",
     "build:prod": "gulp build:prod",
     "extractDefinitions": "gulp extractDefinitions",
     "generateDocs": "gulp generateDocs",

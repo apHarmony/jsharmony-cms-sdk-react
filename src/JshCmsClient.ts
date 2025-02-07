@@ -33,6 +33,7 @@ export class JshCmsClient {
   private readonly _hasRedirectListingPath: boolean;
   private static _redirectData: jsh.Redirect[] | undefined;
   private readonly _pageFilesPath: string;
+  private _pageCache: { [key: string]: Promise<string | undefined> | string | undefined } = {};
 
   public constructor(args: JshCmsClientArgs) {
     this._cmsClient = new jsHarmonyCmsClient({
@@ -66,32 +67,36 @@ export class JshCmsClient {
   }
 
   public getPageContent(path: string): JshCmsAbortable<string | undefined> {
-    interface GlobalBase {
-      jsHarmonyCmsRouters: {
-        [key: string]: boolean;
-      };
-    }
-    const globalBase = globalThis as unknown as GlobalBase;
-    if (!globalBase.jsHarmonyCmsRouters){ globalBase.jsHarmonyCmsRouters = {}; }
-    globalBase.jsHarmonyCmsRouters.main = true;
-    if ('main' in globalBase.jsHarmonyCmsRouters){ return new JshCmsAbortable(() => Promise.resolve(undefined)); }
     path = this._cmsClient.resolve(path, {});
     const fetchAbortable = Fetch.get(path);
 
     return new JshCmsAbortable(
       () => {
-        return fetchAbortable.exec().then(data => {
+        if (path in this._pageCache){
+          if ((typeof this._pageCache[path] === 'string') || (typeof this._pageCache[path] === 'undefined')){
+            return Promise.resolve(this._pageCache[path]);
+          } else {
+            return this._pageCache[path] as Promise<string | undefined>;
+          }
+        }
+        const op = fetchAbortable.exec().then(data => {
           if (data.status === 200) {
+            this._pageCache[path] = data.response;
             return data.response
           } else if (data.status === 404) {
+            this._pageCache[path] = undefined;
             return undefined;
           } else {
             console.error(data.response);
             throw new Error(`Error loading "${path}". Status code ${data.status}`);
           }
         });
+        if (!(path in this._pageCache)){
+          this._pageCache[path] = op;
+        }
+        return op;
       },
-      () => fetchAbortable.abort()
+      () => { /* Do nothing */ }
     );
   }
 

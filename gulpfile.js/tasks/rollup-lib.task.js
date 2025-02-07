@@ -40,14 +40,14 @@ async function runRollupLib() {
 * @param {(() => void) | undefined} onBundleSuccess
 */
 async function runRollupLibWatchEsmBundle(onBundleSuccess) {
-return runWatch('es', onBundleSuccess);
+  return runWatch('es', onBundleSuccess);
 }
 
 /**
 * @param {(() => void) | undefined} onBundleSuccess
 */
 async function runRollupLibWatchUmdBundle(onBundleSuccess) {
-return runWatch('es', onBundleSuccess);
+  return runWatch('umd', onBundleSuccess);
 }
 
 /**

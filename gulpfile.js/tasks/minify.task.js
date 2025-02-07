@@ -98,7 +98,8 @@ async function minify(devBuild) {
 function getFiles() {
   // glob requires forward slashes.
   const pattern = nPath.join(paths.distRoot, '/**/*.js').replace(/\\/g, '/');
-  return glob.sync(pattern);
+  const files = glob.sync(pattern).filter(fileName => nPath.basename(fileName) != 'jsharmony-cms-sdk-react.js');
+  return files;
 }
 
 function parseFileToGetSourceMapPath(filePath, fileString) {

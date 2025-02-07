@@ -53,6 +53,15 @@ exports['build:prod'] = series(
  * to run.
  */
 exports['build:watch'] = async function() {
+  await cleanDist();
+  await runRollupLib();
+  await generateTypeDefs();
+  await rollupDefinitionFiles();
+  await copyFiles();
+  await stripPackageJson();
+}
+
+exports['build:watch:esm'] = async function() {
 
   await cleanDist();
   await copyFiles();
